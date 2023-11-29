@@ -5,3 +5,13 @@ spring:
   application:
     name: trains-auth-server
 
+  datasource:
+    username: root
+    password: 1234
+    url: jdbc:mysql://localhost:3306/trains?createDatabaseIfNotExist=true
+
+
+logging:
+  level:
+    org.hibernate.sql: DEBUG
+    org.hibernate.type.descriptor.sql.sql.BasicBinder: TRACE
