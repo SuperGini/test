@@ -1,4 +1,4 @@
-package com.gini.user.rest.dto;
+package com.gini.rest.dto;
 
 import com.gini.shared.Role;
 

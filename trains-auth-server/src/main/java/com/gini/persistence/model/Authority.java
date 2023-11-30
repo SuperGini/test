@@ -1,7 +1,6 @@
-package com.gini.authority.model;
+package com.gini.persistence.model;
 
 import com.gini.shared.Role;
-import com.gini.user.model.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -36,7 +35,7 @@ public class Authority {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "authorities")
     private Set<User> users = new HashSet<>();
 
 

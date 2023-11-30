@@ -45,5 +45,7 @@ spring:
           fail_on_pagination_over_collection_fetch: true
           plan_cache_max_size: 4096
         dialect: org.hibernate.dialect.MySQL8Dialect
-
-
+# Enable virtual threads
+  threads:
+    virtual:
+      enabled: true

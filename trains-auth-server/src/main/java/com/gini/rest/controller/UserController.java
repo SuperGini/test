@@ -1,10 +1,10 @@
-package com.gini.user.rest.controller;
+package com.gini.rest.controller;
 
-import com.gini.user.model.User;
-import com.gini.user.rest.dto.UserRequest;
-import com.gini.user.rest.dto.UserResponse;
-import com.gini.user.service.UserService;
+import com.gini.rest.dto.UserRequest;
+import com.gini.rest.dto.UserResponse;
+import com.gini.service.UserService;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -20,10 +20,6 @@ public record UserController(
     public UserResponse createUser(@RequestBody UserRequest userRequest){
          return userService.createUser(userRequest);
     }
-
-
-
-
 
 
 }

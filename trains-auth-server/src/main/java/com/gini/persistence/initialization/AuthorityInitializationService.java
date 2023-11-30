@@ -1,22 +1,24 @@
-package com.gini.authority.initialization;
+package com.gini.persistence.initialization;
 
-import com.gini.authority.model.Authority;
+import com.gini.persistence.model.Authority;
 import com.gini.shared.Role;
-import com.gini.authority.repository.AuthorityRepository;
+import com.gini.persistence.repository.AuthorityRepository;
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.stream.Collectors;
 
 @Service
-public record AuthorityInitializationService(
+@RequiredArgsConstructor
+public class AuthorityInitializationService {
 
-        AuthorityRepository authorityRepository
-
-) {
+    private final AuthorityRepository authorityRepository;
 
     @PostConstruct
-    private void initiateRoles() {
+    @Transactional
+    public void initiateRoles() {
         var databaseRoles = authorityRepository.findAll().stream()
                 .map(Authority::getRole)
                 .collect(Collectors.toSet());
@@ -31,6 +33,5 @@ public record AuthorityInitializationService(
                 });
 
     }
-
 
 }

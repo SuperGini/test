@@ -1,6 +1,6 @@
-package com.gini.user.rest.dto;
+package com.gini.rest.dto;
 
-import com.gini.authority.model.Authority;
+import com.gini.persistence.model.Authority;
 
 import java.util.Set;
 
