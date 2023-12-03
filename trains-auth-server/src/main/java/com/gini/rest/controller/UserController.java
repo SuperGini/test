@@ -1,6 +1,6 @@
 package com.gini.rest.controller;
 
-import com.gini.rest.dto.UserRequest2;
+import com.gini.rest.dto.UserRequest;
 import com.gini.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -23,7 +23,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping( "/user")
-    public String createUser(@ModelAttribute("userRequest") UserRequest2 userRequest2) {
+    public String createUser(@ModelAttribute("userRequest") UserRequest userRequest2) {
         userService.createUser2(userRequest2);
         return "components/home/right/create/successCreateUserMessage";
     }

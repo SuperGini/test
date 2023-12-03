@@ -1,19 +1,16 @@
 package com.gini.service;
 
 import com.gini.persistence.model.Authority;
-import com.gini.persistence.repository.AuthorityRepository;
-import com.gini.rest.dto.UserRequest2;
-import com.gini.security.UserSecurity;
 import com.gini.persistence.model.User;
+import com.gini.persistence.repository.AuthorityRepository;
 import com.gini.persistence.repository.UserRepository;
 import com.gini.rest.dto.UserRequest;
 import com.gini.rest.dto.UserResponse;
-import com.gini.shared.Role;
+import com.gini.security.UserSecurity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,24 +25,7 @@ public class UserService implements UserDetailsService {
     private final AuthorityRepository authorityRepository;
 
     @Transactional
-    public UserResponse createUser(UserRequest userRequest) {
-
-       var roles =  userRequest.getAuthorities().stream().map(Authority::getRole).collect(Collectors.toSet());
-
-       var authorities = authorityRepository.getAuthority(roles);
-
-       var user = createUser(userRequest, authorities);
-
-        authorities.forEach(auth -> auth.setUsers(Set.of(user)));
-
-        var savedUser = userRepository.save(user);
-
-        return mapToUserResponse(savedUser);
-
-    }
-
-    @Transactional
-    public UserResponse createUser2(UserRequest2 userRequest2) {
+    public UserResponse createUser2(UserRequest userRequest2) {
 
         var authorities = authorityRepository.getAuthority(userRequest2.getAuthorities());
 
@@ -84,11 +64,11 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findUserByEmail(email)
                 .map(UserSecurity::new)
-                .orElseThrow(() ->new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
 
-    private  UserResponse mapToUserResponse(User savedUser) {
+    private UserResponse mapToUserResponse(User savedUser) {
         return new UserResponse(
                 savedUser.getId(),
                 savedUser.getEmail(),
@@ -99,14 +79,6 @@ public class UserService implements UserDetailsService {
     }
 
     private User createUser(UserRequest userRequest, Set<Authority> authorities) {
-        return User.builder()
-                .email(userRequest.getEmail())
-                .password(userRequest.getPassword())
-                .authorities(authorities)
-                .build();
-    }
-
-    private User createUser(UserRequest2 userRequest, Set<Authority> authorities) {
         return User.builder()
                 .email(userRequest.getEmail())
                 .password(userRequest.getPassword())

@@ -1,6 +1,6 @@
 package com.gini.rest.controller;
 
-import com.gini.rest.dto.UserRequest2;
+import com.gini.rest.dto.UserRequest;
 import com.gini.rest.dto.UserSearch;
 import com.gini.shared.Role;
 import org.springframework.http.MediaType;
@@ -47,7 +47,7 @@ public record HtmxController() {
 
     @GetMapping(value = "/create", produces = MediaType.TEXT_HTML_VALUE)
     public String createPage(Model model) {
-        model.addAttribute("userRequest", new UserRequest2());
+        model.addAttribute("userRequest", new UserRequest());
         model.addAttribute("roles", Role.values());
         return "components/home/right/create/createUser";
     }
