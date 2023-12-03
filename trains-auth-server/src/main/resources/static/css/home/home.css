@@ -1,0 +1,308 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+:root {
+    --white-color: #fdfefe;
+    --gray-color: #ccd1d1;
+    --brown-color: #D35400;
+    --dark-gray-color: #273746;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    background: var(--gray-color);
+}
+
+.container {
+    width: 1920px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+
+}
+
+.left-container {
+    max-width: 20rem;
+    width: 100%;
+    background: var(--dark-gray-color);
+}
+
+.right-container {
+    width: 100%;
+    background: var(--white-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*LEFT SIDE-----------------------------------------------*/
+.wrapper-left {
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+}
+
+.header {
+    color: var(--white-color);
+    font-size: 1.8rem;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    padding-left: 2rem;
+}
+
+.btn-create {
+    margin-left: 2rem;
+    margin-right: 2rem;
+    height: 3rem;
+    font-weight: bolder;
+    background: var(--brown-color);
+    border: none;
+    border-radius: 0.5rem;
+    color: var(--white-color);
+    transition: 0.1s ease-in-out;
+}
+
+.btn-create:hover {
+    background: #d7651a;
+    cursor: pointer;
+    box-shadow: rgb(231, 221, 221) 0px 0px 0px 2px;
+}
+
+.btn-home {
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 3rem;
+    height: 3rem;
+    font-weight: bolder;
+    background: var(--brown-color);
+    border: none;
+    border-radius: 0.5rem;
+    color: var(--white-color);
+    transition: 0.1s ease-in-out;
+}
+
+.btn-home:hover {
+    background: #d7651a;
+    cursor: pointer;
+    box-shadow: rgb(231, 221, 221) 0px 0px 0px 2px;
+}
+
+.bottom-container-left {
+    height: 20%;
+    margin-left: 2rem;
+    display: flex;
+    align-items: end;
+
+}
+
+.logout-wrapper {
+    display: flex;
+    margin-bottom: 2rem;
+}
+
+.logout-wrapper:hover {
+    cursor: pointer;
+}
+
+/*change svg color: https://stackoverflow.com/questions/22252472/how-can-i-change-the-color-of-an-svg-element*/
+.logout-svg {
+    width: 1.6rem;
+    filter: invert(100%) sepia(8%) saturate(960%) hue-rotate(300deg) brightness(119%) contrast(108%);
+
+}
+
+.btn-logout {
+    color: var(--white-color);
+    font-size: 1.6rem;
+    padding-left: 1rem;
+}
+
+
+
+
+/*RIGHT CONTAINER*/
+
+.search-bar {
+    height: 15%;
+    display: flex;
+    align-items: end;
+    width: 100%;
+    justify-content: center;
+
+}
+
+.search-bar-wrapper {
+    width: 60%;
+    position: relative;
+}
+
+.search-svg {
+    width: 1.5rem;
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.search {
+    width: 100%;
+    height: 4rem;
+    border: 2px solid var(--gray-color);
+    border-radius: 0.5rem;
+    padding-left:  3.5rem;
+}
+
+.search:active, .search:focus {
+    outline: none;
+    border: 2px solid var(--brown-color);
+}
+
+.btn-search {
+    margin-left: 2rem;
+    width: 10rem;
+    height: 4rem;
+    border-radius: 0.5rem;
+    border: 2px solid var(--brown-color);
+    background: var(--dark-gray-color);
+    color: var(--white-color);
+    font-weight: bold;
+    transition: 0.1s ease-in-out;
+}
+
+.btn-search:hover {
+    background: var(--white-color);
+    cursor: pointer;
+    color: var(--dark-gray-color);
+}
+
+.table {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 70%;
+    align-items: center;
+}
+
+.table-header {
+    display: flex;
+    width: 80%;
+    height: 8%;
+    align-items: center;
+    font-size: 1.4rem;
+    background: var(--dark-gray-color);
+    margin-top: 3rem;
+    color: var(--white-color);
+    border-radius: 0.5rem;
+}
+
+.email {
+    width: 30%;
+    padding-left: 2rem;
+}
+
+.roles {
+    width: 60%;
+}
+
+.action {
+    width: 10%;
+}
+
+.pad {
+    padding-right: 2rem;
+}
+
+
+.action {
+    text-align: center;
+}
+
+.table-row {
+    display: flex;
+    width: 80%;
+    height: 8%;
+    align-items: center;
+    font-size: 1.4rem;
+    background: var(--white-color);
+    margin-top: 1.5rem;
+    color: var(--dark-gray-color);
+    border-bottom: 1px solid var(--brown-color);
+}
+
+.not-found {
+    justify-content: center;
+    border-bottom: none;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+/*effect -> https://freefrontend.com/css-button-click-effects/*/
+.btn-delete {
+
+    cursor: pointer;
+    position: relative;
+    background-color: #DF1313;
+    color: var(--white-color);
+    width: 8rem;
+    height: 3rem;
+    transition-duration: 0.2s;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    border: 2px solid #DF1313;
+    font-weight: bold;
+
+
+
+}
+
+.btn-delete:hover {
+
+    background: var(--white-color);
+    color: #DF1313;
+    /*box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;*/
+}
+
+.btn-delete:after {
+    content: "";
+    background: #DF1313;
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px !important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 0.8s
+}
+
+.btn-delete:active:after {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s
+}
+
+.btn-delete:focus { outline:0; }
+
+
+.row-wrapper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+

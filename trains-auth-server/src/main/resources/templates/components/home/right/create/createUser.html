@@ -1,0 +1,29 @@
+<div class="right-container">
+    <form class="form-container" th:action="@{/user}" method="post" th:object="${userRequest}">
+        <div class="test"></div>
+        <div class="form-group">
+            <div class="group">
+                <label>email</label>
+                <input type="email" class="field" name="email" th:field="*{email}">
+            </div>
+            <div class="group">
+                <label>password</label>
+                <input type="password" class="field" name="password" th:field="*{password}">
+            </div>
+
+            <div class="authority" th:each="role: ${roles}">
+                <input type="checkbox" th:field = "*{authorities}" th:value="${role}" name="authorities">
+                <label th:text="${role}">admin</label>
+            </div>
+        </div>
+        <button class="crt-button"
+                hx-post="/user"
+                hx-trigger="click"
+                hx-target=".test"
+                hx-swap="outerHTML"
+        >create user
+        </button>
+
+    </form>
+</div>
+

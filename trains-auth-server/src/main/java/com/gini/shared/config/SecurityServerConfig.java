@@ -72,22 +72,6 @@ public class SecurityServerConfig {
         return http.build();
     }
 
-    @Bean
-    @Order(2)
-    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
-            throws Exception {
-        http.csrf(x -> x.disable());
-        http
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/user").permitAll()
-                        .anyRequest().permitAll()
-                )
-                // Form login handles the redirect to the login page from the
-                // authorization server filter chain
-                .formLogin(Customizer.withDefaults());
-
-        return http.build();
-    }
 
     @Bean
     public RegisteredClientRepository registeredClientRepository() {

@@ -1,0 +1,18 @@
+<div class="table-row not-found" th:if="${users.isEmpty()}">No user was found</div>
+
+<div class="table-row" th:each="user: ${users}">
+    <div class="email" th:text="${user.email()}"></div>
+    <div class="roles" th:text="${user.roles()}"></div>
+
+    <!--    https://www.youtube.com/watch?v=M9TL-2Jbr0c&t=2675s how to delete CSRF is enabled-->
+    <form th:method="delete"  th:action="@{/user/{userId}(userId=${user.id()})}">
+        <input type="hidden" th:name="userId" th:value="${user.id()}">
+        <button class="btn-delete action"
+                th:attr="hx-delete=@{/user/{userId}(userId=${user.id()})}"
+                hx-trigger="click"
+                hx-swap="outerHTML"
+                hx-target = "closest .table-row"
+        >DELETE</button>
+    </form>
+</div>
+

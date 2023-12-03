@@ -2,11 +2,13 @@ package com.gini.service;
 
 import com.gini.persistence.model.Authority;
 import com.gini.persistence.repository.AuthorityRepository;
+import com.gini.rest.dto.UserRequest2;
 import com.gini.security.UserSecurity;
 import com.gini.persistence.model.User;
 import com.gini.persistence.repository.UserRepository;
 import com.gini.rest.dto.UserRequest;
 import com.gini.rest.dto.UserResponse;
+import com.gini.shared.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,23 +30,55 @@ public class UserService implements UserDetailsService {
     @Transactional
     public UserResponse createUser(UserRequest userRequest) {
 
-       var roles =  userRequest.authorities().stream().map(Authority::getRole).collect(Collectors.toSet());
+       var roles =  userRequest.getAuthorities().stream().map(Authority::getRole).collect(Collectors.toSet());
 
        var authorities = authorityRepository.getAuthority(roles);
 
-       var user = User.builder()
-               .email(userRequest.email())
-               .password(userRequest.password())
-               .authorities(authorities)
-               .build();
+       var user = createUser(userRequest, authorities);
 
         authorities.forEach(auth -> auth.setUsers(Set.of(user)));
 
         var savedUser = userRepository.save(user);
 
-        return new UserResponse(savedUser.getId(), savedUser.getEmail(), savedUser.getAuthorities().stream().map(Authority::getRole).collect(Collectors.toSet()));
+        return mapToUserResponse(savedUser);
 
     }
+
+    @Transactional
+    public UserResponse createUser2(UserRequest2 userRequest2) {
+
+        var authorities = authorityRepository.getAuthority(userRequest2.getAuthorities());
+
+        var user = createUser(userRequest2, authorities);
+
+        authorities.forEach(auth -> auth.setUsers(Set.of(user)));
+
+        var savedUser = userRepository.save(user);
+
+        return mapToUserResponse(savedUser);
+
+    }
+
+
+    @Transactional
+    public Set<UserResponse> getAllUsers() {
+        return userRepository.getAllUsers().stream()
+                .map(this::mapToUserResponse)
+                .collect(Collectors.toSet());
+    }
+
+    @Transactional
+    public Set<UserResponse> getUserByPartialEmail(String partialEmail) {
+        return userRepository.findByPartialEmail(partialEmail).stream()
+                .map(this::mapToUserResponse)
+                .collect(Collectors.toSet());
+    }
+
+    @Transactional
+    public void deleteUserById(String userId) {
+        userRepository.deleteUserById(userId);
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -52,4 +86,34 @@ public class UserService implements UserDetailsService {
                 .map(UserSecurity::new)
                 .orElseThrow(() ->new RuntimeException("User not found"));
     }
+
+
+    private  UserResponse mapToUserResponse(User savedUser) {
+        return new UserResponse(
+                savedUser.getId(),
+                savedUser.getEmail(),
+                savedUser.getAuthorities().stream()
+                        .map(Authority::getRole)
+                        .collect(Collectors.toSet())
+        );
+    }
+
+    private User createUser(UserRequest userRequest, Set<Authority> authorities) {
+        return User.builder()
+                .email(userRequest.getEmail())
+                .password(userRequest.getPassword())
+                .authorities(authorities)
+                .build();
+    }
+
+    private User createUser(UserRequest2 userRequest, Set<Authority> authorities) {
+        return User.builder()
+                .email(userRequest.getEmail())
+                .password(userRequest.getPassword())
+                .authorities(authorities)
+                .build();
+    }
+
 }
+
+
