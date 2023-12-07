@@ -1,25 +1,17 @@
-<html  lang="en" xmlns:th="https://www.thymeleaf.org">
-
 <div class="right-container" >
-<!--<form th:action="@{/user}" method="get" th:object="${userSearch}" class="search-bar">-->
-<!--    <div class="search-bar-wrapper">-->
-<!--        &lt;!&ndash;                <img src="../static/images/svg/search.svg" alt="" class="search-svg">&ndash;&gt;-->
-<!--        <img src="./images/svg/search.svg" alt="" class="search-svg">-->
-<!--        <input th:field="*{partialEmail}" class="search">-->
-<!--    </div>-->
-<!--    <button class="btn-search"-->
-<!--            hx-get="/user"-->
-<!--            hx-trigger="click"-->
-<!--            hx-target=".table-row"-->
-<!--            hx-swap="outerHTML"-->
-<!--    >Search-->
-<!--    </button>-->
-<!--</form>-->
     <form class="search-bar">
         <div class="search-bar-wrapper">
             <!--                <img src="../static/images/svg/search.svg" alt="" class="search-svg">-->
             <img src="./images/svg/search.svg" alt="" class="search-svg">
-            <input name="partialEmail" class="search">
+<!--  active search-->
+            <input name="partialEmail" class="search"
+
+                   hx-get="/user"
+                   hx-include="[name='partialEmail']"
+                   hx-trigger="input changed delay:500ms, search"
+                   hx-target=".row-wrapper"
+                   hx-swap="innerHTML"
+            >
         </div>
         <button class="btn-search"
                 hx-get="/user"
@@ -52,7 +44,6 @@
 
 </div>
 
-</html>
 
 
 

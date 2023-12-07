@@ -50,4 +50,9 @@ public class User {
     private Set<Authority> authorities = new HashSet<>();
 
 
+    public User addUserToAuthorities(){
+        authorities.forEach(auth -> auth.setUsers(Set.of(this)));
+        return this;
+    }
+
 }

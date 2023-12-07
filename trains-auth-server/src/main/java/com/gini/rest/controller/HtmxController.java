@@ -17,19 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public record HtmxController() {
 
-    @GetMapping("/test")
-    public String get(Model model) {
-
-
-        return "test";
-
-    }
-
     @ResponseBody
     @DeleteMapping(value = "/delete", produces = MediaType.TEXT_HTML_VALUE)
     public String delete() {
-        System.out.println("delete***************************************************************************");
-
         return "";
     }
 
@@ -40,8 +30,7 @@ public record HtmxController() {
     }
 
     @GetMapping(value = "/home", produces = MediaType.TEXT_HTML_VALUE)
-    public String home(Model model) {
-
+    public String home() {
         return "homePage";
     }
 

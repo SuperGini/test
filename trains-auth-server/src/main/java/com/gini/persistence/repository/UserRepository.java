@@ -26,10 +26,16 @@ public interface UserRepository extends JpaRepository<User, UUID> {
             """)
     Set<User> findByPartialEmail(String partialEmail);
 
+    @Query("""
+                SELECT u FROM User u WHERE u.email =:email
+            """)
+    Optional<User> findByEmail(String email);
+
     @Modifying
     @Query("""
                 DELETE FROM User u WHERE u.id = :userId
             """)
     void deleteUserById(String userId);
+
 
 }

@@ -68,11 +68,14 @@ label {
 
 }
 
-.test {
+.message {
     height: 2rem;
     font-size: 1.6rem;
-    color: green;
+    color: var(--dark-gray-color);
     font-weight: bold;
+}
 
+.user-already-exists-error {
+    color: var(--brown-color) !important;
 }
 

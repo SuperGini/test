@@ -1,6 +1,11 @@
-<div class="right-container">
+<!-- set hx-ext="response-targets" or the error response will not work-->
+<div class="right-container" hx-ext="response-targets">
     <form class="form-container" th:action="@{/user}" method="post" th:object="${userRequest}">
-        <div class="test"></div>
+        <div class="message">
+            <div class="success-msg"></div>
+            <div class="user-already-exists-error"></div>
+            <div class="internal-server-error"></div>
+        </div>
         <div class="form-group">
             <div class="group">
                 <label>email</label>
@@ -16,11 +21,14 @@
                 <label th:text="${role}">admin</label>
             </div>
         </div>
+<!--        merge si cu 4xx si cu 5**  https://htmx.org/extensions/response-targets/-->
         <button class="crt-button"
                 hx-post="/user"
                 hx-trigger="click"
-                hx-target=".test"
+                hx-target=".success-msg"
                 hx-swap="outerHTML"
+                hx-target-4xx=".user-already-exists-error"
+                hx-target-5**=".internal-server-error"
         >create user
         </button>
 

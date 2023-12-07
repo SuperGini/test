@@ -1,5 +1,6 @@
 package com.gini.service;
 
+import com.gini.exception.UserAlreadyExistsException;
 import com.gini.persistence.model.Authority;
 import com.gini.persistence.model.User;
 import com.gini.persistence.repository.AuthorityRepository;
@@ -27,18 +28,20 @@ public class UserService implements UserDetailsService {
     @Transactional
     public UserResponse createUser2(UserRequest userRequest2) {
 
+        userRepository
+                .findByEmail(userRequest2.getEmail())
+                .ifPresent(x -> {
+                    throw new UserAlreadyExistsException("User with this name exist");
+                });
+
         var authorities = authorityRepository.getAuthority(userRequest2.getAuthorities());
 
         var user = createUser(userRequest2, authorities);
 
-        authorities.forEach(auth -> auth.setUsers(Set.of(user)));
-
         var savedUser = userRepository.save(user);
 
         return mapToUserResponse(savedUser);
-
     }
-
 
     @Transactional
     public Set<UserResponse> getAllUsers() {
@@ -83,7 +86,8 @@ public class UserService implements UserDetailsService {
                 .email(userRequest.getEmail())
                 .password(userRequest.getPassword())
                 .authorities(authorities)
-                .build();
+                .build()
+                .addUserToAuthorities();
     }
 
 }
