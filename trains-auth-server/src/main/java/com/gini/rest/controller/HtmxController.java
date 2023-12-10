@@ -41,13 +41,13 @@ public record HtmxController() {
         return "components/home/right/create/createUser";
     }
 
-    @GetMapping(path = "/home-right", produces = MediaType.TEXT_HTML_VALUE)
+    @GetMapping(value = "/home-right", produces = MediaType.TEXT_HTML_VALUE)
     public String homeContainer(Model model) {
         model.addAttribute("userSearch", new UserSearch());
         return "components/home/home";
     }
 
-    @GetMapping(path = "/left", produces = MediaType.TEXT_HTML_VALUE)
+    @GetMapping(value = "/left", produces = MediaType.TEXT_HTML_VALUE)
     public String leftContainer() {
         return "components/home/left/left";
     }

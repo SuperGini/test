@@ -42,14 +42,14 @@ import java.util.List;
 import java.util.UUID;
 
 @Configuration
-@EnableWebSecurity(debug = true)
+//@EnableWebSecurity(debug = true)
 public class SecurityServerConfig {
 
     @Bean
     @Order(1)
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http)
             throws Exception {
-        http.csrf(x -> x.disable());
+     //   http.csrf(x -> x.disable());
 
         /**
          *  http // necesara ca sa avem acces la http://localhost:8080/.well-known/openid-configuration din postman

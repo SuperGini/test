@@ -1,9 +1,9 @@
-<div class="right-container" >
+<div class="right-container">
     <form class="search-bar">
         <div class="search-bar-wrapper">
             <!--                <img src="../static/images/svg/search.svg" alt="" class="search-svg">-->
             <img src="./images/svg/search.svg" alt="" class="search-svg">
-<!--  active search-->
+            <!--  active search-->
             <input name="partialEmail" class="search"
 
                    hx-get="/user"
@@ -23,24 +23,25 @@
         </button>
     </form>
 
-<div class="table">
-    <div class="table-header">
-        <div class="email">email</div>
-        <div class="roles">roles</div>
-        <div class="action pad">action</div>
-    </div>
-    <div class="row-wrapper">
-        <div class="table-row"></div>
+    <div class="table">
+        <div class="table-header">
+            <div class="email">email</div>
+            <div class="roles">roles</div>
+            <div class="action pad">action</div>
+        </div>
+        <div class="row-wrapper">
+            <div class="table-row"></div>
+        </div>
+
     </div>
 
-</div>
+    <div
+            hx-get="/users"
+            hx-trigger="load"
+            hx-target=".row-wrapper"
+            hx-swap="innerHTML"
+    ></div>
 
-<div
-        hx-get="/users"
-        hx-trigger="load"
-        hx-target=".row-wrapper"
-        hx-swap="innerHTML"
-></div>
 
 </div>
 

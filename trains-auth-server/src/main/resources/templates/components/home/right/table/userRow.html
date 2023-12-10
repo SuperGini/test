@@ -1,19 +1,93 @@
 <div class="table-row not-found" th:if="${users.isEmpty()}">No user was found</div>
 
-<div class="table-row" th:each="user: ${users}">
+<div class="table-row xxx" th:each="user: ${users}">
     <div class="email" th:text="${user.email()}"></div>
     <div class="roles" th:text="${user.roles()}"></div>
 
     <!--    https://www.youtube.com/watch?v=M9TL-2Jbr0c&t=2675s how to delete CSRF is enabled-->
-    <form th:method="delete"  th:action="@{/user/{userId}(userId=${user.id()})}">
+    <form th:method="delete" th:action="@{/user/{userId}(userId=${user.id()})}">
         <input type="hidden" th:name="userId" th:value="${user.id()}">
         <button class="btn-delete action"
                 th:attr="hx-delete=@{/user/{userId}(userId=${user.id()})}"
                 hx-trigger="click"
                 hx-swap="outerHTML"
-                hx-target = "closest .table-row"
+                hx-target="closest .table-row"
                 hx-confirm="Are you sure you wish to delete this account?"
-        >DELETE</button>
+        >DELETE
+        </button>
     </form>
 </div>
+
+<div class="paginator-container">
+    <div class="paginator-text">
+        <p>Total users: [[${totalItems}]]</p>
+        <p>Total pages: [[${totalPages}]]</p>
+    </div>
+    <button class="paginator-btn margin-right"
+            th:attr="hx-get=@{/users(pageNumber = 1)}"
+            hx-trigger="click"
+            hx-swap="innerHTML"
+            hx-target=".row-wrapper"
+            th:disabled="${previous == false}"
+    >
+        <!--                    <img src="./images/svg/arrow-left.svg" alt="left-svg" class="arrow">-->
+        <img src="./images/svg/first.svg" alt="left-svg" class="arrow">
+    </button>
+
+    <button class="paginator-btn"
+            th:attr="hx-get=@{/users(pageNumber = ${currentPage - 1})}"
+            hx-trigger="click"
+            hx-swap="innerHTML"
+            hx-target=".row-wrapper"
+            th:disabled="${previous == false}"
+    >
+        <!--                    <img src="./images/svg/arrow-right.svg" alt="right-svg" class="arrow">-->
+        <img src="./images/svg/previous.svg" alt="right-svg" class="arrow">
+    </button>
+
+    <div class="page">
+        <p>[[${currentPage}]]</p>
+    </div>
+
+
+
+    <button class="paginator-btn margin-right"
+            th:attr="hx-get=@{/users(pageNumber = ${currentPage + 1})}"
+            hx-trigger="click"
+            hx-swap="innerHTML"
+            hx-target=".row-wrapper"
+            th:disabled="${next == false}"
+    >
+        <!--                    <img src="./images/svg/arrow-left.svg" alt="left-svg" class="arrow">-->
+        <img src="./images/svg/next.svg" alt="left-svg" class="arrow">
+    </button>
+
+    <button class="paginator-btn"
+            th:attr="hx-get=@{/users(pageNumber = ${totalPages})}"
+            hx-trigger="click"
+            hx-swap="innerHTML"
+            hx-target=".row-wrapper"
+            th:disabled="${next == false}"
+    >
+        <!--                    <img src="./images/svg/arrow-left.svg" alt="left-svg" class="arrow">-->
+        <img src="./images/svg/last.svg" alt="left-svg" class="arrow">
+    </button>
+
+</div>
+
+
+<!--<div class="paginator-container">-->
+<!--    &lt;!&ndash;    <img src="../../../../../static/images/svg/arrow-left.svg" alt="left-svg" class="arrow">&ndash;&gt;-->
+<!--    &lt;!&ndash;    <img src="../../../../../static/images/svg/arrow-right.svg" alt="right-svg" class="arrow">&ndash;&gt;-->
+<!--    <div th:each="x: ${#numbers.sequence(1, totalPages)}">-->
+<!--        <button class="btn-delete action"-->
+<!--                th:attr="hx-get=@{/users(pageNumber = ${x})}"-->
+<!--                hx-trigger="click"-->
+<!--                hx-swap="innerHTML"-->
+<!--                hx-target = ".row-wrapper"-->
+<!--        >[[${x}]]</button>-->
+<!--    </div>-->
+<!--    <img src="./images/svg/arrow-left.svg" alt="left-svg" class="arrow">-->
+<!--    <img src="./images/svg/arrow-right.svg" alt="right-svg" class="arrow">-->
+<!--</div>-->
 

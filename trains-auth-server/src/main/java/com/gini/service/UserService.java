@@ -9,12 +9,19 @@ import com.gini.rest.dto.UserRequest;
 import com.gini.rest.dto.UserResponse;
 import com.gini.security.UserSecurity;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -43,6 +50,7 @@ public class UserService implements UserDetailsService {
         return mapToUserResponse(savedUser);
     }
 
+    @Deprecated(forRemoval = true, since = " 10.12.2023 -> not in use anymore -> to be deleted")
     @Transactional
     public Set<UserResponse> getAllUsers() {
         return userRepository.getAllUsers().stream()
@@ -61,6 +69,29 @@ public class UserService implements UserDetailsService {
     public void deleteUserById(String userId) {
         userRepository.deleteUserById(userId);
     }
+
+    /**
+     * F.F.F important -> https://vladmihalcea.com/join-fetch-pagination-spring/
+     *
+     * */
+    @Transactional
+    public Page<UserResponse> findAllUsersPaginated(Integer pageNumber) {
+        var nrOfElementsOnPage = 2;
+
+        Pageable page = PageRequest.of(pageNumber, nrOfElementsOnPage);
+
+        var usersIds = userRepository.fidUsersId(page);
+
+        var users = userRepository.getUsersPaginated(usersIds).stream()
+                .map(this::mapToUserResponse)
+                .toList();
+
+        var countAllUsers = userRepository.totalUsersCount();
+
+        return new PageImpl<>(users, page, countAllUsers);
+
+    }
+
 
 
     @Override

@@ -29,10 +29,12 @@ public class WebConfig {
                 .authorizeHttpRequests(
                         authorize ->
                                 authorize
-                                        .requestMatchers(endpoints).hasAuthority("ADMIN")
+                                     //   .requestMatchers(endpoints).hasAuthority("ADMIN")
+                                        .requestMatchers(endpoints).permitAll()
                                         .requestMatchers("/error").permitAll()
                                         .requestMatchers("css/**", "/images/**").permitAll()
-                                        .anyRequest().authenticated()
+                                        .requestMatchers("/home").permitAll()
+                                        .anyRequest().permitAll()
                 )
                 // Form login handles the redirect to the login page from the
                 // authorization server filter chain

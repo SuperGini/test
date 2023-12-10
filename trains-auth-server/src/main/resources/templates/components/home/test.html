@@ -1,0 +1,151 @@
+<!doctype html>
+<!--<html lang="en">-->
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../../static/css/home/home.css"/>
+    <link rel="stylesheet" href="../static/css/home/create.css"/>
+
+    <!--    AM DOWNLODAT HTMX CA WEB JAR SI AM FACUT AICI LINK CATRE ACEL JAR-->
+    <!--    https://www.youtube.com/watch?v=38WAVRfxPxI-->
+    <script type="text/javascript" th:src="@{webjars/htmx.org/1.9.9/dist/htmx.min.js}"></script>
+    <!--to make success create user message disappear after 1 sec-->
+    <script type="text/javascript" th:src="@{webjars/htmx.org/1.9.9/dist/ext/remove-me.js}"></script>
+    <script type="text/javascript" th:src="@{webjars/htmx.org/1.9.9/dist/ext/response-targets.js}"></script>
+    <!--    <script src="https://unpkg.com/htmx.org/dist/ext/response-targets.js"></script>-->
+
+    <!--    <link rel="stylesheet" th:href="@{/css/home/home.css}"/>-->
+    <!--    <link rel="stylesheet" th:href="@{/css/home/create.css}"/>-->
+
+</head>
+<body>
+<div class="container">
+    <div class="left-container">
+        <div class="wrapper-left">
+            <div class="header">
+                <h3>Trains Auth</h3>
+            </div>
+
+            <button class="btn-create"
+                    hx-get="/create"
+                    hx-trigger="click"
+                    hx-target=".right-container"
+                    hx-swap="outerHTML"
+            >Create
+            </button>
+
+            <button class="btn-home"
+                    hx-get="/home-right"
+                    hx-trigger="click"
+                    hx-target=".right-container"
+                    hx-swap="outerHTML"
+            >Home
+            </button>
+        </div>
+
+        <div class="bottom-container-left">
+            <div class="logout-wrapper">
+                <!--                <img src="../static/images/svg/logout.svg" alt="logout-svg" class="logout-svg">-->
+                <img src="./images/svg/logout.svg" alt="logout-svg" class="logout-svg">
+                <div class="btn-logout">Logout</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="right-container">
+        <div class="table-row xxx" th:each="user: ${users}">
+            <div class="email" th:text="${user.email()}"></div>
+            <div class="roles" th:text="${user.roles()}"></div>
+
+            <!--    https://www.youtube.com/watch?v=M9TL-2Jbr0c&t=2675s how to delete CSRF is enabled-->
+            <form th:method="delete" th:action="@{/user/{userId}(userId=${user.id()})}">
+                <input type="hidden" th:name="userId" th:value="${user.id()}">
+                <button class="btn-delete action"
+                        th:attr="hx-delete=@{/user/{userId}(userId=${user.id()})}"
+                        hx-trigger="click"
+                        hx-swap="outerHTML"
+                        hx-target="closest .table-row"
+                        hx-confirm="Are you sure you wish to delete this account?"
+                >DELETE
+                </button>
+            </form>
+        </div>
+
+        <div class="paginator-container">
+            <div class="paginator-text">
+                <p>Total users: 15</p>
+                <p>Total pages: 5</p>
+            </div>
+            <button class="paginator-btn margin-right"
+                    th:attr="hx-get=@{/users(pageNumber = 1)}"
+                    hx-trigger="click"
+                    hx-swap="innerHTML"
+                    hx-target=".row-wrapper"
+                    th:disabled="${previous == false}"
+            >
+                <!--                    <img src="./images/svg/arrow-left.svg" alt="left-svg" class="arrow">-->
+                <img src="../../../static/images/svg/first.svg" alt="left-svg" class="arrow">
+            </button>
+
+            <button class="paginator-btn"
+                    th:attr="hx-get=@{/users(pageNumber = ${currentPage - 1})}"
+                    hx-trigger="click"
+                    hx-swap="innerHTML"
+                    hx-target=".row-wrapper"
+                    th:disabled="${previous == false}"
+            >
+                <!--                    <img src="./images/svg/arrow-right.svg" alt="right-svg" class="arrow">-->
+                <img src="../../../static/images/svg/previous.svg" alt="right-svg" class="arrow">
+            </button>
+
+            <div class="page">
+                <p>5</p>
+            </div>
+
+
+
+            <button class="paginator-btn margin-right"
+                    th:attr="hx-get=@{/users(pageNumber = ${currentPage + 1})}"
+                    hx-trigger="click"
+                    hx-swap="innerHTML"
+                    hx-target=".row-wrapper"
+                    th:disabled="${next == false}"
+            >
+                <!--                    <img src="./images/svg/arrow-left.svg" alt="left-svg" class="arrow">-->
+                <img src="../../../static/images/svg/next.svg" alt="left-svg" class="arrow">
+            </button>
+
+            <button class="paginator-btn"
+                    th:attr="hx-get=@{/users(pageNumber = ${totalPages})}"
+                    hx-trigger="click"
+                    hx-swap="innerHTML"
+                    hx-target=".row-wrapper"
+                    th:disabled="${next == false}"
+            >
+                <!--                    <img src="./images/svg/arrow-left.svg" alt="left-svg" class="arrow">-->
+                <img src="../../../static/images/svg/last.svg" alt="left-svg" class="arrow">
+            </button>
+
+        </div>
+    </div>
+
+    <div
+            hx-get="/home-right"
+            hx-trigger="load"
+            hx-target=".right-container"
+            hx-swap="outerHTML"
+    ></div>
+    <div
+            hx-get="/left"
+            hx-trigger="load"
+            hx-target=".left-container"
+            hx-swap="outerHTML"
+    ></div>
+</div>
+</body>
+</html>

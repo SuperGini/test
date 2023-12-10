@@ -299,10 +299,65 @@ body {
 
 .row-wrapper{
     width: 100%;
+    max-height: 60rem;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
+/*PAGINATOR------------------------------------*/
+
+.paginator-text {
+    display: flex;
+    font-size: 1.3rem;
+    margin-right: 4rem;
+    align-items: center;
+}
+
+.paginator-text p {
+    margin-right: 1rem;
+}
+
+.paginator-container {
+    display: flex;
+    padding: 2rem;
+}
+
+.paginator-container .paginator-btn img {
+    width: 1.5rem;
+    height: 1.5rem;
+    filter: invert(100%) sepia(3%) saturate(5135%) hue-rotate(199deg) brightness(101%) contrast(105%);
+}
+
+.paginator-btn {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    background: var(--dark-gray-color);
+
+}
+
+.paginator-btn:hover{
+    background: var(--brown-color);
+}
+
+.page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    height: 3rem;
+    width: 3rem;
+    font-weight: bold;
+    margin: 0 2rem 0 2rem;
+}
+
+.margin-right {
+    margin-right: 1rem;
+}
+
 
 
