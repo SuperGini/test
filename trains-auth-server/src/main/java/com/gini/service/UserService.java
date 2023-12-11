@@ -50,14 +50,6 @@ public class UserService implements UserDetailsService {
         return mapToUserResponse(savedUser);
     }
 
-    @Deprecated(forRemoval = true, since = " 10.12.2023 -> not in use anymore -> to be deleted")
-    @Transactional
-    public Set<UserResponse> getAllUsers() {
-        return userRepository.getAllUsers().stream()
-                .map(this::mapToUserResponse)
-                .collect(Collectors.toSet());
-    }
-
     @Transactional
     public Page<UserResponse> getUserByPartialEmail(String partialEmail, Integer pageNumber) {
         var nrOfElementsOnPage = 5;

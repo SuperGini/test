@@ -1,6 +1,6 @@
 package com.gini.persistence.model;
 
-import com.gini.shared.Role;
+import com.gini.security.Role;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

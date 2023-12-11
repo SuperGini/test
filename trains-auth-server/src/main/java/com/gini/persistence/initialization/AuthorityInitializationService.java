@@ -1,7 +1,7 @@
 package com.gini.persistence.initialization;
 
 import com.gini.persistence.model.Authority;
-import com.gini.shared.Role;
+import com.gini.security.Role;
 import com.gini.persistence.repository.AuthorityRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.gini.shared;
+package com.gini.security;
 
 import java.util.Set;
 

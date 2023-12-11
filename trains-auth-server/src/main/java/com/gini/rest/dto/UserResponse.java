@@ -1,6 +1,6 @@
 package com.gini.rest.dto;
 
-import com.gini.shared.Role;
+import com.gini.security.Role;
 
 import java.util.Set;
 

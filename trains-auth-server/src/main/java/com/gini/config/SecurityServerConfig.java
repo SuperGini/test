@@ -1,4 +1,4 @@
-package com.gini.shared.config;
+package com.gini.config;
 
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -42,7 +42,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Configuration
-//@EnableWebSecurity(debug = true)
+//@EnableWebSecurity(debug = true) -> for logging security
 public class SecurityServerConfig {
 
     @Bean

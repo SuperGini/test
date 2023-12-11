@@ -1,7 +1,7 @@
 package com.gini.persistence.repository;
 
 import com.gini.persistence.model.Authority;
-import com.gini.shared.Role;
+import com.gini.security.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

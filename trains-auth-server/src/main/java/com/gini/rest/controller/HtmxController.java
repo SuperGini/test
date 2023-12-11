@@ -2,13 +2,12 @@ package com.gini.rest.controller;
 
 import com.gini.rest.dto.UserRequest;
 import com.gini.rest.dto.UserSearch;
-import com.gini.shared.Role;
+import com.gini.security.Role;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
