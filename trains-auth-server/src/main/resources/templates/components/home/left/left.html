@@ -4,6 +4,13 @@
             <h3>Trains Auth</h3>
         </div>
 
+        <button class="btn-home"
+                hx-get="/home-right"
+                hx-trigger="click"
+                hx-target=".right-container"
+                hx-swap="outerHTML"
+        >Home</button>
+
         <button class="btn-create"
                 hx-get="/create"
                 hx-trigger="click"
@@ -12,20 +19,14 @@
         >Create
         </button>
 
-        <button class="btn-home"
-                hx-get="/home-right"
-                hx-trigger="click"
-                hx-target=".right-container"
-                hx-swap="outerHTML"
-        >Home</button>
     </div>
 
     <div class="bottom-container-left">
-        <div class="logout-wrapper">
+        <form class="logout-wrapper" th:action="@{/logout}" method="post">
             <!--                <img src="../static/images/svg/logout.svg" alt="logout-svg" class="logout-svg">-->
             <img src="./images/svg/logout.svg" alt="logout-svg" class="logout-svg">
-            <div class="btn-logout">Logout</div>
-        </div>
+            <input class="btn-logout" type="submit" value="Logout">
+        </form>
     </div>
 
 </div>

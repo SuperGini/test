@@ -10,7 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebConfig {
 
 
-    String [] endpoints = {
+    String[] endpoints = {
             "/user/**",
             "/users/**",
             "/delete/**",
@@ -24,23 +24,26 @@ public class WebConfig {
     @Order(2)
     public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http)
             throws Exception {
-     //   http.csrf(x -> x.disable());
+        //   http.csrf(x -> x.disable());
         http
                 .authorizeHttpRequests(
                         authorize ->
                                 authorize
-                                     //   .requestMatchers(endpoints).hasAuthority("ADMIN")
+                                        .requestMatchers(endpoints).hasAuthority("ADMIN")
                                         .requestMatchers(endpoints).permitAll()
                                         .requestMatchers("/error").permitAll()
-                                        .requestMatchers("css/**", "/images/**").permitAll()
-                                        .requestMatchers("/home").permitAll()
-                                        .anyRequest().permitAll()
+                                        .requestMatchers("/css/login.css", "/images/favicon/**", "/images/login.jpg").permitAll()
+                                        //  .requestMatchers("/home").permitAll()
+                                        //  .anyRequest().permitAll()
+                                        .anyRequest().authenticated()
                 )
                 // Form login handles the redirect to the login page from the
                 // authorization server filter chain
                 .formLogin(x -> x.loginPage("/login").permitAll()
                         .defaultSuccessUrl("/home")
-                );
+                ).logout(logout -> logout
+                        // .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout"));
 
         return http.build();
     }

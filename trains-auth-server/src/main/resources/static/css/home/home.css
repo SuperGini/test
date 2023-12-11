@@ -61,7 +61,7 @@ body {
     padding-left: 2rem;
 }
 
-.btn-create {
+.btn-home {
     margin-left: 2rem;
     margin-right: 2rem;
     height: 3rem;
@@ -73,13 +73,13 @@ body {
     transition: 0.1s ease-in-out;
 }
 
-.btn-create:hover {
+.btn-home:hover {
     background: #d7651a;
     cursor: pointer;
     box-shadow: rgb(231, 221, 221) 0px 0px 0px 2px;
 }
 
-.btn-home {
+.btn-create {
     margin-left: 2rem;
     margin-right: 2rem;
     margin-top: 3rem;
@@ -92,7 +92,7 @@ body {
     transition: 0.1s ease-in-out;
 }
 
-.btn-home:hover {
+.btn-create:hover {
     background: #d7651a;
     cursor: pointer;
     box-shadow: rgb(231, 221, 221) 0px 0px 0px 2px;
@@ -126,6 +126,12 @@ body {
     color: var(--white-color);
     font-size: 1.6rem;
     padding-left: 1rem;
+    background: var(--dark-gray-color);
+    border: none;
+}
+
+.btn-logout:hover{
+    cursor: pointer;
 }
 
 
@@ -198,7 +204,7 @@ body {
 .table-header {
     display: flex;
     width: 80%;
-    height: 8%;
+    height: 4rem;
     align-items: center;
     font-size: 1.4rem;
     background: var(--dark-gray-color);
@@ -209,15 +215,18 @@ body {
 
 .email {
     width: 30%;
-    padding-left: 2rem;
+    padding: 1rem;
+
 }
 
 .roles {
     width: 60%;
+    padding: 1rem;
 }
 
 .action {
     width: 10%;
+
 }
 
 .pad {
@@ -232,11 +241,10 @@ body {
 .table-row {
     display: flex;
     width: 80%;
-    height: 8%;
+    height: 3.5rem;
     align-items: center;
     font-size: 1.4rem;
     background: var(--white-color);
-    margin-top: 1.5rem;
     color: var(--dark-gray-color);
     border-bottom: 1px solid var(--brown-color);
 }
@@ -250,18 +258,18 @@ body {
 
 /*effect -> https://freefrontend.com/css-button-click-effects/*/
 .btn-delete {
-
     cursor: pointer;
     position: relative;
     background-color: #DF1313;
     color: var(--white-color);
-    width: 8rem;
-    height: 3rem;
+    width: 6rem;
+    height: 2.5rem;
     transition-duration: 0.2s;
     overflow: hidden;
     border-radius: 0.5rem;
     border: 2px solid #DF1313;
     font-weight: bold;
+    font-size: 1.3rem;
 
 
 
@@ -299,14 +307,24 @@ body {
 
 .row-wrapper{
     width: 100%;
-    max-height: 60rem;
+    max-height: 45rem;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+.white-space {
+    max-height: 14rem;
+    height: 100%;
+}
+
 /*PAGINATOR------------------------------------*/
+
+.paginator-container {
+    display: flex;
+    padding: 2rem;
+}
 
 .paginator-text {
     display: flex;
@@ -317,11 +335,6 @@ body {
 
 .paginator-text p {
     margin-right: 1rem;
-}
-
-.paginator-container {
-    display: flex;
-    padding: 2rem;
 }
 
 .paginator-container .paginator-btn img {

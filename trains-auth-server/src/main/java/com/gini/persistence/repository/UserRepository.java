@@ -42,14 +42,20 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
 
     @Query("""
-                SELECT u FROM User u JOIN FETCH u.authorities ORDER BY u.email ASC
-            """)
-    Page<User> findAllUsersPaginated(Pageable pageable);
-
-    @Query("""
                 SELECT u.id FROM User u
             """)
     List<String> fidUsersId(Pageable pageable);
+
+    @Query("""
+                SELECT u.id FROM User u WHERE u.email LIKE %:partialEmail%
+            """)
+    List<String> findUsersIdByEmail(Pageable pageable, String partialEmail);
+
+        @Query("""
+    SELECT COUNT(u) from User u WHERE u.email LIKE %:partialEmail%
+""")
+    Long totalUsersCount2 (String partialEmail);
+
 
 
     @Query("""

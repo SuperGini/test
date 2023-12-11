@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -28,6 +29,11 @@ public record HtmxController() {
     public String loginPage() {
         return "loginPage";
     }
+
+//    @PostMapping("/logout")
+//    public String logout() {
+//        return "redirect:loginPage?logout";
+//    }
 
     @GetMapping(value = "/home", produces = MediaType.TEXT_HTML_VALUE)
     public String home() {

@@ -59,10 +59,17 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public Set<UserResponse> getUserByPartialEmail(String partialEmail) {
-        return userRepository.findByPartialEmail(partialEmail).stream()
+    public Page<UserResponse> getUserByPartialEmail(String partialEmail, Integer pageNumber) {
+        var nrOfElementsOnPage = 5;
+        Pageable page = PageRequest.of(pageNumber, nrOfElementsOnPage);
+        var usersIds = userRepository.findUsersIdByEmail(page, partialEmail);
+
+        var users = userRepository.getUsersPaginated(usersIds).stream()
                 .map(this::mapToUserResponse)
-                .collect(Collectors.toSet());
+                .toList();
+        var countAllUsers = userRepository.totalUsersCount2(partialEmail);
+
+        return new PageImpl<>(users, page, countAllUsers);
     }
 
     @Transactional
@@ -76,7 +83,7 @@ public class UserService implements UserDetailsService {
      * */
     @Transactional
     public Page<UserResponse> findAllUsersPaginated(Integer pageNumber) {
-        var nrOfElementsOnPage = 2;
+        var nrOfElementsOnPage = 5;
 
         Pageable page = PageRequest.of(pageNumber, nrOfElementsOnPage);
 
@@ -89,6 +96,17 @@ public class UserService implements UserDetailsService {
         var countAllUsers = userRepository.totalUsersCount();
 
         return new PageImpl<>(users, page, countAllUsers);
+
+    }
+
+    @Transactional
+    public Page <UserResponse> findallUsersPaginated(Integer pageNumber, String partialEmail) {
+
+        if (partialEmail == null || partialEmail.isEmpty() || partialEmail.isBlank()) {
+            return findAllUsersPaginated(pageNumber - 1);
+        }
+
+        return getUserByPartialEmail(partialEmail, pageNumber - 1);
 
     }
 
