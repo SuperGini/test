@@ -10,7 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebConfig {
 
 
-    String[] endpoints = {
+    private final String[] endpoints = {
             "/user/**",
             "/users/**",
             "/delete/**",
