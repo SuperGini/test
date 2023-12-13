@@ -1,5 +1,7 @@
 package com.gini.config;
 
+import com.gini.config.clients.ClientApp;
+import com.gini.config.clients.Clients;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
@@ -87,14 +89,14 @@ public class SecurityServerConfig {
     public RegisteredClientRepository registeredClientRepository() {
         var registeredClients = new ArrayList<RegisteredClient>();
 
-        clients.clientApps.stream()
+        clients.clientApps().stream()
                 .filter(x -> ANGULAR.equals(x.registerId()))
                 .forEach(x -> {
                     var client = registeredFontClient(x);
                     registeredClients.add(client);
                 });
 
-        clients.clientApps.stream()
+        clients.clientApps().stream()
                 .filter(x -> TRAIN_API.equals(x.registerId()))
                 .forEach(x -> {
                     var client = registeredBackEndClient(x);

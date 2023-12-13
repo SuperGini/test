@@ -1,4 +1,4 @@
-package com.gini.config;
+package com.gini.config.clients;
 
 public record ClientApp(
         String registerId,
