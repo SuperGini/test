@@ -16,3 +16,15 @@ logging:
     org.hibernate.sql: DEBUG
     org.hibernate.type.descriptor.sql.sql.BasicBinder: TRACE
 #    org.springframework.security: TRACE
+
+
+clients:
+  clientApps:
+    - registerId: angular
+      clientId: client
+      clientSecret: secret
+      redirectUri: http://localhost:8083/authorized
+      logoutRedirectUri: http://127.0.0.1:8080/
+    - registerId: train-api
+      clientId: trainApi
+      clientSecret: trainSecret

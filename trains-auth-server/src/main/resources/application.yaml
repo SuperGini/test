@@ -50,3 +50,16 @@ spring:
   threads:
     virtual:
       enabled: true
+
+
+clients:
+  clientApps:
+    - registerId:
+      clientId:
+      clientSecret:
+      redirectUri:
+      logoutRedirectUri:
+    - registerId:
+      clientId:
+      clientSecret:
+
