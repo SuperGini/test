@@ -2,6 +2,8 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.0'
     id 'io.spring.dependency-management' version '1.1.4'
+// https://github.com/OpenAPITools/openapi-generator/blob/master/modules/openapi-generator-gradle-plugin/README.adoc
+    id "org.openapi.generator" version "6.6.0"
 }
 
 group = 'com.gini'
@@ -22,6 +24,12 @@ repositories {
 }
 
 dependencies {
+//******************** SWAGGER AND OPENAPI GENERATOR *********************************************************
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.3.0'
+    implementation group: 'io.swagger.core.v3', name: 'swagger-annotations', version: '2.2.19'
+    implementation 'org.openapitools:jackson-databind-nullable:0.2.2'
+//*************************************************************************************************************
+
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -34,3 +42,39 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
+
+
+//******************** SWAGGER AND OPENAPI GENERATOR *********************************************************
+def source = "$buildDir/generated/src/main/java"
+
+openApiGenerate {
+    generatorName = "spring"
+    inputSpec = "$rootDir/trains-core.yaml".toString()
+    outputDir = "$buildDir/generated".toString()
+    apiPackage = 'gini.api'
+    modelPackage = 'gin.model'
+    configOptions = [
+            documentationProvider: 'springdoc',
+            dateLibrary: 'java8',
+            interfaceOnly: 'true',
+            skipDefaultInterface: 'true',
+            useApiIgnore:'false',
+            useSpringBoot3: "true",
+    ]
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java', source]
+        }
+    }
+}
+
+compileJava.dependsOn "openApiGenerate"
+//****************************************************************************************************
+
+jar {
+    enabled = false
+}
+

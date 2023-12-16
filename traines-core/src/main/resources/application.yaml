@@ -1,0 +1,61 @@
+server:
+  port: 8090
+
+management:
+  server:
+    port: 9091
+  endpoints:
+    enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true
+      probes:
+        enabled: true
+spring:
+  application:
+    name: trains-core
+
+  #https://vladmihalcea.com/spring-boot-application-properties/
+  datasource:
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/trains
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    #Hikari optimization
+    hikari:
+      minimum-idle: 0                 # -> min connection pool size
+      maximum-pool-size: 50           # -> max connection pool size
+      max-lifetime: 900000            # -> max time that a pooled connection will be retired
+      transaction-isolation: TRANSACTION_READ_COMMITTED
+      auto-commit: false
+      data-source-properties:
+        useServerPrepStmts: false
+        cachePrepStmts: true
+        prepStmtCacheSize: 500
+        prepStmtCacheSqlLimit: 1024
+  #Hibernate optimization
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+          batch_size: 15
+        order_updates: true
+        order_inserts: true
+        connection:
+          provider_disables_autocommit: true
+        query:
+          in_clause_parameter_padding: true
+          #          to prevent pagination in memory when doing a page request with JOIN FETCH -> https://vladmihalcea.com/join-fetch-pagination-spring/
+          fail_on_pagination_over_collection_fetch: true
+          plan_cache_max_size: 4096
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  # Enable virtual threads
+  threads:
+    virtual:
+      enabled: true
+
