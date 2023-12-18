@@ -1,22 +1,22 @@
 package com.gini.rest.controller;
 
-import com.gini.rest.dto.request.TicketRequest;
 import com.gini.service.TicketService;
+import gin.model.TicketRequest;
+import gini.api.TicketApi;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class TicketController {
+public class TicketController implements TicketApi {
 
     private final TicketService ticketService;
 
-    @PostMapping("/ticket")
-    public void createTicket(@RequestBody TicketRequest ticketRequest){
+
+    @Override
+    public ResponseEntity<Void> createTicket(TicketRequest ticketRequest) {
         ticketService.createTicket(ticketRequest);
+        return ResponseEntity.ok().build();
     }
-
-
 }

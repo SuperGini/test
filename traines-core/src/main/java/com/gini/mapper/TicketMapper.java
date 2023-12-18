@@ -3,7 +3,7 @@ package com.gini.mapper;
 import com.gini.model.Customer;
 import com.gini.model.Route;
 import com.gini.model.Ticket;
-import com.gini.rest.dto.request.TicketRequest;
+import gin.model.TicketRequest;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -12,22 +12,22 @@ import java.math.BigDecimal;
 public class TicketMapper {
 
     public Ticket mapFrom(TicketRequest ticketRequest) {
-        var routeRequest = ticketRequest.route();
-        var customerRequest = ticketRequest.customer();
+        var routeRequest = ticketRequest.getRoute();
+        var customerRequest = ticketRequest.getCustomer();
 
         var route = Route.builder()
-                .id(routeRequest.id())
-                .startLocation(routeRequest.startLocation())
-                .endLocation(routeRequest.endLocation())
+                .id(routeRequest.getId())
+                .startLocation(routeRequest.getStartLocation())
+                .endLocation(routeRequest.getEndLocation())
                 .build();
 
         var customer = Customer.builder()
-                .id(customerRequest.id())
-                .email(customerRequest.email())
+                .id(customerRequest.getId())
+                .email(customerRequest.getEmail())
                 .build();
 
         return Ticket.builder()
-                .price(new BigDecimal(ticketRequest.price()))
+                .price(new BigDecimal(ticketRequest.getPrice()))
                 .route(route)
                 .customer(customer)
                 .build()

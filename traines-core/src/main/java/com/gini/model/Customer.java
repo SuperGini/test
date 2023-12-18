@@ -28,7 +28,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "customer",
-        indexes = @Index(name = "email_index", columnList = "email")
+        indexes = @Index(name = "email_index", columnList = "emails")
 )
 public class Customer {
 

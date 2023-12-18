@@ -2,7 +2,7 @@ package com.gini.service;
 
 import com.gini.mapper.TicketMapper;
 import com.gini.repository.TicketRepository;
-import com.gini.rest.dto.request.TicketRequest;
+import gin.model.TicketRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
