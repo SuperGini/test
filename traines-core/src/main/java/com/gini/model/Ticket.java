@@ -19,6 +19,7 @@ import lombok.ToString;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -44,7 +45,6 @@ public class Ticket {
     private Route route;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "user_id")
     private Customer customer;
 
 

@@ -15,6 +15,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ import java.util.List;
 public class Customer {
 
     @Id
+  //  @UuidGenerator(style = UuidGenerator.Style.TIME)
     private String id;
 
     @Column(name = "emails", nullable = false, unique = true)
@@ -41,4 +43,10 @@ public class Customer {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "customer")
     private List<Ticket> tickets = new ArrayList<>();
+
+    public Customer addCustomerToTickets(){
+        tickets.forEach(x -> x.setCustomer(this));
+        return this;
+    }
+
 }
