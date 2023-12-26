@@ -17,7 +17,6 @@ import org.hibernate.annotations.UuidGenerator;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -39,7 +38,7 @@ public class Ticket {
 
     /**
      * https://discourse.hibernate.org/t/onetoone-mapping-has-unique-constraint-when-generating-schema/7642 -> @OneToOne sets foreign key as unique so i had to transform in @OneToMany
-     * */
+     */
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, mappedBy = "ticket")
     private Set<Route> routes = new HashSet<>();
 
