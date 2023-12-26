@@ -76,3 +76,5 @@ clients:
       clientId:
       clientSecret:
 
+trains-api:
+  clientId:

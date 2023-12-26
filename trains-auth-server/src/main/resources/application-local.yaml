@@ -10,7 +10,7 @@ logging:
   level:
     org.hibernate.sql: DEBUG
     org.hibernate.type.descriptor.sql.sql.BasicBinder: TRACE
-#    org.springframework.security: TRACE
+    org.springframework.security: TRACE
 
 
 clients:
@@ -23,3 +23,7 @@ clients:
     - registerId: train-api
       clientId: trainApi
       clientSecret: trainSecret
+
+#values has to be the same with the one from clients
+trains-api:
+  clientId: trainApi

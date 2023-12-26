@@ -2,26 +2,29 @@ package com.gini.config;
 
 import com.gini.config.clients.ClientApp;
 import com.gini.config.clients.Clients;
+import com.gini.security.UserSecurity;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.OidcScopes;
+import org.springframework.security.oauth2.core.oidc.endpoint.OidcParameterNames;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.server.authorization.OAuth2TokenType;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
@@ -48,6 +51,9 @@ import java.util.UUID;
 //@EnableWebSecurity(debug = true)// -> for logging security
 @RequiredArgsConstructor
 public class SecurityServerConfig {
+
+    @Value("${trains-api.clientId}")
+    private String trainsApiClientId;
 
     private static final String ANGULAR = "angular";
     private static final String TRAIN_API = "train-api";
@@ -150,16 +156,38 @@ public class SecurityServerConfig {
     @Bean
     public OAuth2TokenCustomizer<JwtEncodingContext> tokenCustomizer() {
         return context -> {
+            //if I want to get one of the claims from the token
+            var x = context
+                    .getClaims()
+                    .build()
+                    .getClaims()
+                    .get("sub")
+                    .toString();
+
+            var y = (UserSecurity) context.getPrincipal().getPrincipal();
+
             var authorities = context.getPrincipal().getAuthorities();
             /**
              * setting claims and audience on the access token and open_id token
              * */
-            context.getClaims()
-                    .claim("authorities", authorities.stream()
-                            .map(GrantedAuthority::getAuthority)
-                            .toList()
-                    ).audience(List.of("trains-api"));
+            if (OAuth2TokenType.ACCESS_TOKEN.equals(context.getTokenType()) && x.equals(trainsApiClientId)) {
+                context.getClaims()
+                        .claim("authorities", authorities.stream()
+                                .map(GrantedAuthority::getAuthority)
+                                .toList()
+                        ).audience(List.of("trains-core"));
+            }
 
+            if (OidcParameterNames.ID_TOKEN.equals(context.getTokenType().getValue())) {
+                context.getClaims()
+                        .claim("authorities", authorities.stream()
+                                .map(GrantedAuthority::getAuthority)
+                                .toList()
+                        )
+                        .claim("userId", y.user().getId())
+                        .audience(List.of("trains-api"));
+
+            }
         };
     }
 
