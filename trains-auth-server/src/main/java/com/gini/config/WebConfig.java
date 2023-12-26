@@ -29,6 +29,7 @@ public class WebConfig {
                 .authorizeHttpRequests(
                         authorize ->
                                 authorize
+                                        .requestMatchers("/actuator/health/**").permitAll()
                                         .requestMatchers(endpoints).hasAuthority("ADMIN")
                                         .requestMatchers(endpoints).permitAll()
                                         .requestMatchers("/error").permitAll()
@@ -44,6 +45,7 @@ public class WebConfig {
                 ).logout(logout -> logout
                         // .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout"));
+
 
         return http.build();
     }

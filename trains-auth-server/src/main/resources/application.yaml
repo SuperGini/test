@@ -4,6 +4,19 @@ server:
     whitelabel:
       enabled: false
 
+management:
+  server:
+    port: 8081
+  endpoints:
+    enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true
+      probes:
+        enabled: true
+    info:
+      enabled:
+
 spring:
   application:
     name: trains-auth-server

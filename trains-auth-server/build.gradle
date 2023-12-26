@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.gini'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 
 java {
     sourceCompatibility = '21'
@@ -41,4 +41,9 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+//to not build the plain.jar
+jar {
+    enabled = false
 }

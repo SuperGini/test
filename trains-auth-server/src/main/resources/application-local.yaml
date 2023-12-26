@@ -1,10 +1,5 @@
-server:
-  port: 8080
 
 spring:
-  application:
-    name: trains-auth-server
-
   datasource:
     username: root
     password: 1234
@@ -24,7 +19,7 @@ clients:
       clientId: client
       clientSecret: secret
       redirectUri: http://localhost:8083/authorized
-      logoutRedirectUri: http://127.0.0.1:8080/
+      logoutRedirectUri: http://127.0.0.1:8083/
     - registerId: train-api
       clientId: trainApi
       clientSecret: trainSecret

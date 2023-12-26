@@ -14,6 +14,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -44,7 +45,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Configuration
-//@EnableWebSecurity(debug = true) -> for logging security
+//@EnableWebSecurity(debug = true)// -> for logging security
 @RequiredArgsConstructor
 public class SecurityServerConfig {
 
