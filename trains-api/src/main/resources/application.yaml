@@ -1,0 +1,21 @@
+server:
+  port: 9010
+
+management:
+  server:
+    port: 9011
+  endpoints:
+    enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true
+      probes:
+        enabled: true
+spring:
+  application:
+    name: trains-api
+
+    # Enable virtual threads
+  threads:
+    virtual:
+      enabled: true

@@ -1,0 +1,218 @@
+openapi: 3.0.3
+info:
+  title: Trains-core microservice
+  description: This microservice is saving information to the database
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: mihai.iordache82@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+servers:
+  - url: http://localhost:8090
+    description: local
+tags:
+  - name: Ticket
+    description: Endpoints related to tickets
+  - name: route
+    description: Endpoints related to routes
+
+paths:
+  /ticket:
+    post:
+      tags:
+        - Ticket
+      summary: Creates a ticket
+      description: Creates a new Ticket
+      operationId: createTicket
+      requestBody:
+        description: Create a new ticket for a
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                badRequestTiket:
+                  $ref: '#/components/examples/badRequest'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                internalServerError:
+                  $ref: '#/components/examples/internalServerError'
+
+  /route:
+    post:
+      tags:
+        - route
+      summary: Add a new route
+      description: Add a new route in db
+      operationId: createRoute
+      requestBody:
+        description: Create a new route
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RouteRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                badRequestTiket:
+                  $ref: '#/components/examples/badRequest'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                internalServerError:
+                  $ref: '#/components/examples/internalServerError'
+    put:
+      tags:
+        - route
+      summary: Update a route
+      description: Update a route in db
+      operationId: updateRoute
+      requestBody:
+        description: Update a route
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RouteRequestUpdate'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                badRequestTiket:
+                  $ref: '#/components/examples/badRequest'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                internalServerError:
+                  $ref: '#/components/examples/internalServerError'
+
+components:
+  schemas:
+    TicketRequest:
+      required:
+        - price
+        - route
+        - customer
+      type: object
+      properties:
+        price:
+          type: string
+          description: price of the ticket
+          example: "201.26"
+        route:
+          $ref: '#/components/schemas/RouteRequest'
+        customer:
+          $ref: '#/components/schemas/CustomerRequest'
+    RouteRequest:
+      required:
+        - startLocation
+        - endLocation
+      type: object
+      properties:
+        id:
+          type: string
+          example: "48483cc6-c522-4991-90b1-7767186c35bc"
+        startLocation:
+          type: string
+          example: "Bucharest"
+        endLocation:
+          type: string
+          example: "Iasi"
+        price:
+          type: string
+          example: "201.26"
+    CustomerRequest:
+      required:
+        - id
+        - email
+      type: object
+      properties:
+        id:
+          type: string
+          example: "ad08d682-ffb0-4618-8da1-33a737bf2a06"
+        email:
+          type: string
+          example: ddasdasdasdd@gmail.com
+    RouteRequestUpdate:
+      required:
+        - id
+        - startLocation
+        - endLocation
+        - price
+      type: object
+      properties:
+        id:
+          type: string
+          example: "ad08d682-ffb0-4618-8da1-33a737bf2a06"
+        startLocation:
+          type: string
+          example: 'Bucharest'
+        endLocation:
+          type: string
+          example: 'Iasi'
+        price:
+          type: string
+          example: '105.56'
+    ErrorResponse:
+      type: object
+      properties:
+        errorMessage:
+          type: string
+        status:
+          type: number
+
+  examples:
+    badRequest:
+      value:
+        errorMessage: "Invalid request"
+        status: 400
+    internalServerError:
+      value:
+        errorMessage: "Internal server error"
+        status: 500
+
+    RouteRequest:
+      value:
+        id: "48483cc6-c522-4991-90b1-7767186c35bc"
+        startLocation: "Bucharest"
+        endLocation: "Iasi"
+        price: "200.56"
