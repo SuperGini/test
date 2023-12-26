@@ -2,6 +2,7 @@ package com.gini.configuration;
 
 import com.gini.error.decoder.RestClientErrorDecoder;
 import com.gini.gateway.TrainsCoreGateway;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestFactory;
@@ -15,6 +16,9 @@ import java.time.Duration;
 @Configuration
 public class RestClientConfig {
 
+    @Value("${trains-core.url}")
+    private String trainsCoreUrl;
+
     /**
      * https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/client/support/InterceptingHttpAccessor.html#getRequestFactory()
      */
@@ -26,10 +30,10 @@ public class RestClientConfig {
         return factory;
     }
 
-    @Bean //set http cliend and error decoder on rest client
+    @Bean //set http client and error decoder on rest client
     public RestClient trainsCoreRestClient(ClientHttpRequestFactory clientHttpRequestFactory) {
         return RestClient.builder()
-                .baseUrl("http://localhost:8090")
+                .baseUrl(trainsCoreUrl)
                 .defaultStatusHandler(new RestClientErrorDecoder())
                 .requestFactory(clientHttpRequestFactory)
                 .build();

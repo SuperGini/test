@@ -1,1 +1,2 @@
-
+trains-core:
+  url: "http://localhost:8090"

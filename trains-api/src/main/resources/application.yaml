@@ -19,3 +19,8 @@ spring:
   threads:
     virtual:
       enabled: true
+
+
+
+trains-core:
+  url: "http://localhost:8090"

@@ -24,8 +24,6 @@ public class RestClientErrorDecoder implements ResponseErrorHandler {
 
         if(is4XXError) {
             throw new TrainsCoreClientException("shit happens:D -> 400");
-
-
         }
 
         if(is5XXError) {
