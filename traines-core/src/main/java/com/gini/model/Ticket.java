@@ -37,6 +37,9 @@ public class Ticket {
     @Column(name = "price", nullable = false)
     private BigDecimal price;
 
+    /**
+     * https://discourse.hibernate.org/t/onetoone-mapping-has-unique-constraint-when-generating-schema/7642 -> @OneToOne sets foreign key as unique so i had to transform in @OneToMany
+     * */
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, mappedBy = "ticket")
     private Set<Route> routes = new HashSet<>();
 
