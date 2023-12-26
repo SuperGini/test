@@ -7,6 +7,7 @@ import gin.model.TicketRequest;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Component
 public class TicketMapper {
@@ -28,11 +29,18 @@ public class TicketMapper {
 
         return Ticket.builder()
                 .price(new BigDecimal(ticketRequest.getPrice()))
-                .route(route)
+                .routes(Set.of(route))
                 .customer(customer)
-                .build()
-                .mapCustomerId() //creating the relation to be saved in  db
-                .mapRouteId();   //creating the relation to be saved in  db
+                .build();
+
+    }
+
+    public Ticket mapFrom(TicketRequest ticketRequest, Customer customer, Route route) {
+        return Ticket.builder()
+                .price(new BigDecimal(ticketRequest.getPrice()))
+                .routes(Set.of(route))
+                .customer(customer)
+                .build();
     }
 
 

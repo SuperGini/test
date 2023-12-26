@@ -19,12 +19,11 @@ import org.hibernate.annotations.UuidGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Getter
 @Setter
 @Entity
@@ -37,10 +36,21 @@ public class Customer {
     private String id;
 
     @Column(name = "emails", nullable = false, unique = true)
-    @EqualsAndHashCode.Include
     private String email;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "customer")
     private List<Ticket> tickets = new ArrayList<>();
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(id, customer.id) && Objects.equals(email, customer.email) && Objects.equals(tickets, customer.tickets);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email, tickets);
+    }
 }
