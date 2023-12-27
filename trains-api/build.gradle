@@ -1,3 +1,5 @@
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.0'
@@ -30,6 +32,9 @@ dependencies {
     implementation 'org.openapitools:jackson-databind-nullable:0.2.2'
 //*************************************************************************************************************
 
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
@@ -44,12 +49,44 @@ tasks.named('test') {
 //******************** SWAGGER AND OPENAPI GENERATOR *********************************************************
 def source = "$buildDir/generated/src/main/java"
 
-openApiGenerate {
+//openApiGenerate {
+//    generatorName = "spring"
+//    inputSpec = "$rootDir/trains-core-openapi.yaml".toString()
+//    outputDir = "$buildDir/generated".toString()
+//    apiPackage = 'gini.api'
+//    modelPackage = 'gin.model'
+//    configOptions = [
+//            documentationProvider: 'springdoc',
+//            dateLibrary: 'java8',
+//            interfaceOnly: 'true',
+//            skipDefaultInterface: 'true',
+//            useApiIgnore:'false',
+//            useSpringBoot3: "true",
+//    ]
+//}
+
+task buildTrainsCoreClasses(type: GenerateTask){
     generatorName = "spring"
-    inputSpec = "$rootDir/trains-core.yaml".toString()
+    inputSpec = "$rootDir/trains-core-openapi.yaml".toString()
     outputDir = "$buildDir/generated".toString()
-    apiPackage = 'gini.api'
-    modelPackage = 'gin.model'
+    apiPackage = 'gini.trainscore.api'
+    modelPackage = 'gini.trainscore.model'
+    configOptions = [
+            documentationProvider: 'springdoc',
+            dateLibrary: 'java8',
+            interfaceOnly: 'true',
+            skipDefaultInterface: 'true',
+            useApiIgnore:'false',
+            useSpringBoot3: "true",
+    ]
+}
+
+task buildTrainsApiClasses(type: GenerateTask){
+    generatorName = "spring"
+    inputSpec = "$rootDir/trains-api-opeapi.yaml".toString()
+    outputDir = "$buildDir/generated".toString()
+    apiPackage = 'gini.trainsapi.api'
+    modelPackage = 'gini.trainsapi.model'
     configOptions = [
             documentationProvider: 'springdoc',
             dateLibrary: 'java8',
@@ -68,7 +105,7 @@ sourceSets {
     }
 }
 
-compileJava.dependsOn "openApiGenerate"
+compileJava.dependsOn "buildTrainsCoreClasses", "buildTrainsApiClasses"
 //****************************************************************************************************
 
 jar {

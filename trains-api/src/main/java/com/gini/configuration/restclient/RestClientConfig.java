@@ -1,4 +1,4 @@
-package com.gini.configuration;
+package com.gini.configuration.restclient;
 
 import com.gini.error.decoder.RestClientErrorDecoder;
 import com.gini.gateway.TrainsCoreGateway;
@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.support.RestClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
@@ -31,10 +32,11 @@ public class RestClientConfig {
     }
 
     @Bean //set http client and error decoder on rest client
-    public RestClient trainsCoreRestClient(ClientHttpRequestFactory clientHttpRequestFactory) {
+    public RestClient trainsCoreRestClient(ClientHttpRequestFactory clientHttpRequestFactory, OAuth2AuthorizedClientManager authorizedClientManager) {
         return RestClient.builder()
                 .baseUrl(trainsCoreUrl)
                 .defaultStatusHandler(new RestClientErrorDecoder())
+                .requestInterceptor(new TokenInterceptor(authorizedClientManager))
                 .requestFactory(clientHttpRequestFactory)
                 .build();
     }

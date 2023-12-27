@@ -1,9 +1,9 @@
 package com.gini.controller;
 
 import com.gini.service.RouteService;
-import gin.model.RouteRequest;
-import gin.model.RouteRequestUpdate;
-import gini.api.RouteApi;
+import gini.trainsapi.api.RouteApi;
+import gini.trainsapi.model.RouteRequest;
+import gini.trainsapi.model.RouteRequestUpdate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

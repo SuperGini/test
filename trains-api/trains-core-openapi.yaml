@@ -129,17 +129,14 @@ components:
   schemas:
     TicketRequest:
       required:
-        - price
-        - route
+        - routeId
         - customer
       type: object
       properties:
-        price:
+        routeId:
           type: string
           description: price of the ticket
-          example: "201.26"
-        route:
-          $ref: '#/components/schemas/RouteRequest'
+          example: "48483cc6-c522-4991-90b1-7767186c35bc"
         customer:
           $ref: '#/components/schemas/CustomerRequest'
     RouteRequest:
