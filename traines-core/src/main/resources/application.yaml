@@ -61,3 +61,11 @@ spring:
 
 auth-server:
   url:
+
+
+# disable swagger ui in production
+springdoc:
+  swagger-ui:
+    enabled: false
+  api-docs:
+    enabled: false
