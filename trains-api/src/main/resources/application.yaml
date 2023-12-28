@@ -24,3 +24,7 @@ spring:
 
 trains-core:
   url: "http://localhost:8090"
+
+auth-server:
+  url:
+

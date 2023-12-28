@@ -4,3 +4,6 @@ trains-core:
 logging:
   level:
     org.springframework.security: TRACE
+
+auth-server:
+  url: "http://localhost:8080"

@@ -65,6 +65,10 @@ def source = "$buildDir/generated/src/main/java"
 //    ]
 //}
 
+
+/*
+https://stackoverflow.com/questions/58118614/how-to-generate-openapi-code-using-multiple-yaml-file
+*/
 task buildTrainsCoreClasses(type: GenerateTask){
     generatorName = "spring"
     inputSpec = "$rootDir/trains-core-openapi.yaml".toString()
