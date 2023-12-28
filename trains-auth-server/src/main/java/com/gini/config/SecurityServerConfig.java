@@ -57,6 +57,10 @@ public class SecurityServerConfig {
 
     private static final String ANGULAR = "angular";
     private static final String TRAIN_API = "train-api";
+    private static final String AUTHORITIES = "authorities";
+    private static final String TRAINS_CORE = "trains-core";
+    private static final String TRAINS_API = "trains-api";
+    private static final String CLAIM_USER_ID = "userId";
 
     private final Clients clients;
 
@@ -96,20 +100,15 @@ public class SecurityServerConfig {
     public RegisteredClientRepository registeredClientRepository() {
         var registeredClients = new ArrayList<RegisteredClient>();
 
-        clients.clientApps().stream()
-                .filter(x -> ANGULAR.equals(x.registerId()))
-                .forEach(x -> {
-                    var client = registeredFontClient(x);
-                    registeredClients.add(client);
-                });
-
-        clients.clientApps().stream()
-                .filter(x -> TRAIN_API.equals(x.registerId()))
-                .forEach(x -> {
-                    var client = registeredBackEndClient(x);
-                    registeredClients.add(client);
-                });
-
+        clients.clientApps().forEach(client -> {
+                    var registeredClient = switch (client.registerId()) {
+                        case ANGULAR -> registeredFontClient(client);
+                        case TRAINS_API -> registeredBackEndClient(client);
+                        default -> null;
+                    };
+                    registeredClients.add(registeredClient);
+                }
+        );
         return new InMemoryRegisteredClientRepository(registeredClients);
     }
 
@@ -164,28 +163,30 @@ public class SecurityServerConfig {
                     .get("sub")
                     .toString();
 
-            var y = (UserSecurity) context.getPrincipal().getPrincipal();
-
             var authorities = context.getPrincipal().getAuthorities();
             /**
              * setting claims and audience on the access token and open_id token
              * */
+            //used by trains-api microservice
             if (OAuth2TokenType.ACCESS_TOKEN.equals(context.getTokenType()) && x.equals(trainsApiClientId)) {
                 context.getClaims()
-                        .claim("authorities", authorities.stream()
+                        .claim(AUTHORITIES, authorities.stream()
                                 .map(GrantedAuthority::getAuthority)
                                 .toList()
-                        ).audience(List.of("trains-core"));
+                        ).audience(List.of(TRAINS_CORE));
             }
 
+            //used by users
             if (OidcParameterNames.ID_TOKEN.equals(context.getTokenType().getValue())) {
+                var securityUser = (UserSecurity) context.getPrincipal().getPrincipal();
+
                 context.getClaims()
-                        .claim("authorities", authorities.stream()
+                        .claim(AUTHORITIES, authorities.stream()
                                 .map(GrantedAuthority::getAuthority)
                                 .toList()
                         )
-                        .claim("userId", y.user().getId())
-                        .audience(List.of("trains-api"));
+                        .claim(CLAIM_USER_ID, securityUser.user().getId())
+                        .audience(List.of(TRAINS_API));
 
             }
         };
