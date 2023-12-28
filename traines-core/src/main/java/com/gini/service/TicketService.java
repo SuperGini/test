@@ -10,8 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -26,20 +24,18 @@ public class TicketService {
     public void createTicket(TicketRequest ticketRequest) {
 
         var customerId = ticketRequest.getCustomer().getId();
-        var routeId = ticketRequest.getRoute().getId();
+        var routeId = ticketRequest.getRouteId();
 
-        var customer = customerRepository.findById(customerId);
+        var customerOpt = customerRepository.findById(customerId);
         var route = routeRepository.getReferenceById(routeId);
 
-        if(customer.isPresent()){
-            log.info("mapping ticket request");
-            var ticket = ticketMapper.mapFrom(ticketRequest, customer.get(), route);
-            ticketRepository.save(ticket); //creates new ticket and sets the customer and route on ticket
-            return;
-        }
         log.info("mapping ticket request");
-        var ticket = ticketMapper.mapFrom(ticketRequest);
-        ticketRepository.save(ticket); //creates new customer and ticket and sets the route
+        var ticket = customerOpt
+                .map(customer -> ticketMapper.mapFrom(ticketRequest, customer, route)) //creates new ticket and sets the customer and route on ticket
+                .orElseGet(() -> ticketMapper.mapFrom(ticketRequest, route)); //creates new customer and ticket and sets the route
+
+        ticketRepository.save(ticket);
+
     }
 
 }

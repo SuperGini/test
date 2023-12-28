@@ -12,23 +12,15 @@ import java.util.Set;
 @Component
 public class TicketMapper {
 
-    public Ticket mapFrom(TicketRequest ticketRequest) {
-        var routeRequest = ticketRequest.getRoute();
+    public Ticket mapFrom(TicketRequest ticketRequest, Route route) {
         var customerRequest = ticketRequest.getCustomer();
-
-        var route = Route.builder()
-                .id(routeRequest.getId())
-                .startLocation(routeRequest.getStartLocation())
-                .endLocation(routeRequest.getEndLocation())
-                .build();
-
         var customer = Customer.builder()
                 .id(customerRequest.getId())
                 .email(customerRequest.getEmail())
                 .build();
 
         return Ticket.builder()
-                .price(new BigDecimal(ticketRequest.getPrice()))
+                .price(route.getPrice())
                 .routes(Set.of(route))
                 .customer(customer)
                 .build();
@@ -37,7 +29,7 @@ public class TicketMapper {
 
     public Ticket mapFrom(TicketRequest ticketRequest, Customer customer, Route route) {
         return Ticket.builder()
-                .price(new BigDecimal(ticketRequest.getPrice()))
+                .price(route.getPrice())
                 .routes(Set.of(route))
                 .customer(customer)
                 .build();

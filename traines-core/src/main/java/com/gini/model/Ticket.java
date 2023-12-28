@@ -50,7 +50,10 @@ public class Ticket {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ticket ticket = (Ticket) o;
-        return Objects.equals(id, ticket.id) && Objects.equals(price, ticket.price) && Objects.equals(routes, ticket.routes) && Objects.equals(customer, ticket.customer);
+        return Objects.equals(id, ticket.id)
+                && Objects.equals(price, ticket.price)
+                && Objects.equals(routes, ticket.routes)
+                && Objects.equals(customer, ticket.customer);
     }
 
     @Override

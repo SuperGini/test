@@ -2,6 +2,7 @@ package com.gini.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
@@ -43,7 +44,7 @@ public class Route {
     @Column(name = "prices", nullable = false)
     private BigDecimal price;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Ticket ticket;
 
     @CreationTimestamp
