@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProvider;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProviderBuilder;
@@ -47,6 +48,8 @@ public class ResourceServerConfig {
                         )
                 );
 
+        http.sessionManagement(x -> x.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
         http.authorizeHttpRequests(auth ->
                 auth.requestMatchers("/ticket/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/route/**").hasAnyRole("ADMIN")
@@ -74,6 +77,8 @@ public class ResourceServerConfig {
      * <a href=https://docs.spring.io/spring-security/reference/servlet/oauth2/client/index.html>Client manager</a>
      * <br>
      * this bean will act as a proxy to auth-server and manage the client
+     *  ATTENTION!!!! -> dont forget to restart this service if trains-auth-server restarts, because the manager cashes the token
+     *  and when the auth-server restarts it changes the signing key :D
      * */
     @Bean
     public OAuth2AuthorizedClientManager authorizedClientManager(ClientRegistrationRepository clientRegistrationRepository,
