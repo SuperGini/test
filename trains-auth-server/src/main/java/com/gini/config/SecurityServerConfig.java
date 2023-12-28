@@ -58,8 +58,8 @@ public class SecurityServerConfig {
     private static final String ANGULAR = "angular";
     private static final String TRAIN_API = "train-api";
     private static final String AUTHORITIES = "authorities";
-    private static final String TRAINS_CORE = "trains-core";
-    private static final String TRAINS_API = "trains-api";
+    private static final String TRAINS_CORE_AUDIENCE = "trains-core";
+    private static final String TRAINS_API_AUDIENCE = "trains-api";
     private static final String CLAIM_USER_ID = "userId";
 
     private final Clients clients;
@@ -103,7 +103,7 @@ public class SecurityServerConfig {
         clients.clientApps().forEach(client -> {
                     var registeredClient = switch (client.registerId()) {
                         case ANGULAR -> registeredFontClient(client);
-                        case TRAINS_API -> registeredBackEndClient(client);
+                        case TRAIN_API -> registeredBackEndClient(client);
                         default -> null;
                     };
                     registeredClients.add(registeredClient);
@@ -173,7 +173,7 @@ public class SecurityServerConfig {
                         .claim(AUTHORITIES, authorities.stream()
                                 .map(GrantedAuthority::getAuthority)
                                 .toList()
-                        ).audience(List.of(TRAINS_CORE));
+                        ).audience(List.of(TRAINS_CORE_AUDIENCE));
             }
 
             //used by users
@@ -186,7 +186,7 @@ public class SecurityServerConfig {
                                 .toList()
                         )
                         .claim(CLAIM_USER_ID, securityUser.user().getId())
-                        .audience(List.of(TRAINS_API));
+                        .audience(List.of(TRAINS_API_AUDIENCE));
 
             }
         };
