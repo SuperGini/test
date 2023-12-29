@@ -1,14 +1,123 @@
-.main {
-
+.background-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
 }
 
 img {
-  object-fit: cover;
-  z-index: -1;
+    object-fit: cover;
+    z-index: -5;
+    position: relative;
 }
 
-p{
-  color: red;
-  font-size: 7rem;
-  z-index: 3;
+.img-container::before {
+    color: var(--white-color);
+    content: "";
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -2;
 }
+
+.main-container {
+    z-index: 5;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.center-container {
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+h3 , h4 {
+    color: var(--white-color);
+}
+
+h4 {
+    font-size: 1.5rem;
+}
+
+h3 {
+    margin-top: 2rem;
+    font-size: 2rem;
+    max-width: 60rem;
+    width: 100%;
+    text-align: center;
+    font-family: "Roboto Light", sans-serif;
+    color: var(--gray-color);
+
+}
+
+.icons {
+    padding: 3rem;
+}
+
+mat-icon {
+    color: var(--orange-color);
+    cursor: pointer;
+    transition: 0.1s ease-in;
+}
+
+
+mat-icon:hover {
+    color: var(--white-color);
+}
+
+.github {
+    width: 2.15rem;
+    height: 2.15rem;
+    margin-bottom: 0.2rem;
+    margin-right: 1rem;
+}
+
+.linkedin {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.login-btn {
+    width: 15rem;
+    height: 4rem;
+    border: 2px solid var(--orange-color);
+    border-radius: 0.5rem;
+    background:   #17202a ;
+    font-family: "Roboto Black", sans-serif;
+    color: var(--white-color);
+    cursor: pointer;
+    transition: 0.1s ease-in;
+}
+
+.login-btn:hover{
+    border: 2px solid var(--white-color);
+}
+
+p {
+    margin-top: 2rem;
+    color: white;
+    font-size: 1.5rem;
+}
+
+footer {
+    height: 20%;
+    display: flex;
+    align-items: end;
+    padding-bottom: 1.5rem;
+    font-family: "Roboto Black", sans-serif;
+}
+
+
+span {
+    color: var(--orange-color);
+}
+
+
+
+
