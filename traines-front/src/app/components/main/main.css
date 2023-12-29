@@ -1,0 +1,14 @@
+.main {
+
+}
+
+img {
+  object-fit: cover;
+  z-index: -1;
+}
+
+p{
+  color: red;
+  font-size: 7rem;
+  z-index: 3;
+}

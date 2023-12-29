@@ -1,1 +1,69 @@
 /* You can add global styles to this file, and also import other style files */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+
+
+
+
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  font-family: "Roboto Light",
+  "Roboto Regular",
+  "Roboto Medium",
+  "Roboto Black",
+  sans-serif;
+}
+
+/*-----------------FONTS----------------------------------------------------------*/
+
+/*
+format("truetype") -> indicates that the font file is in TrueType Font format.
+                      This helps the browser correctly interpret and handle the font file
+                       during the download and rendering process
+
+https://medium.com/@infowithkiiru/adding-custom-fonts-to-angular-cc24072d9ed3 -> adding fonts
+*/
+
+@font-face {
+  font-family: "Roboto Light";
+  src: url("./assets/fonts/Roboto-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto Regular";
+  src: url("./assets/fonts/Roboto-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto Medium";
+  src: url("./assets/fonts/Roboto-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto Black";
+  src: url("./assets/fonts/Roboto-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+
+
