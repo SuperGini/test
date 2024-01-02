@@ -1,0 +1,60 @@
+.central-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav-bar {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    min-height: 5rem;
+    max-height: 8%;
+    height: 100%;
+    background: #1C2833;
+}
+
+ul {
+    display: flex;
+    max-width: 25rem;
+    width: 100%;
+    list-style: none;
+    justify-content: space-around;
+}
+
+li {
+    width: 6rem;
+    display: flex;
+    align-items: center;
+}
+
+a {
+    font-family: "Roboto Regular", sans-serif;
+    font-size: 1.5rem;
+    text-align: center;
+    text-decoration: none;
+    color: var(--white-color);
+    width: 100%;
+    padding: 1rem 0 1rem 0;
+    border-bottom: 1px solid var(--white-color);
+}
+
+.router-container {
+    max-width: 80rem;
+    width: 100%;
+    max-height: 85%;
+    height: 100%;
+    flex-direction: column;
+}
+
+.down-icons-container {
+    max-width: 80rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 1rem;
+}
+
+

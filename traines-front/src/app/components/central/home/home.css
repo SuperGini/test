@@ -1,0 +1,102 @@
+.home-center-container {
+    max-width: 80rem;
+    width: 100%;
+    background: var(--white-color);
+    height: 90%;
+    margin-top: 1rem;
+    padding: 2rem;
+}
+
+.ticket-container {
+    max-width: 80rem;
+    width: 100%;
+    background:  #ecf0f1;
+    margin-top: 1rem;
+    border-radius: 0.7rem;
+    min-height: 15%;
+    max-height: 15%;
+    height: 100%;
+}
+
+.price-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    border-bottom: 1px dashed black;
+    position: relative;
+    min-height: 40%;
+    max-height: 40%;
+}
+
+.round {
+    position: absolute;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: var(--white-color);
+    border-radius: 50%;
+    top: 0;
+    left: 0;
+}
+
+.left {
+    top: 100%;
+    transform: translate(-50%, -50%);
+}
+
+.right {
+    top: 100%;
+    left: 100%;
+    transform: translate(-50%, -50%);
+}
+
+.price-container p {
+    font-family: "Roboto Medium", sans-serif;
+    font-size: 1.3rem;
+}
+
+.price {
+    display: flex;
+    align-items: center;
+}
+
+.price-container mat-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-right: 0.2rem;
+}
+
+.route-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60%;
+}
+
+.line {
+    width: 40%;
+    height: 1px;
+    border: 1px solid var(--orange-color);
+    margin: 0 0.2rem 0 0.2rem;
+}
+
+.common {
+    padding: 2rem;
+    font-family: "Roboto Medium", sans-serif;
+    font-size: 1.3rem;
+}
+
+.departure {
+    margin-right: auto;
+}
+
+.arrival {
+    margin-left: auto;
+}
+
+.route-container mat-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+
