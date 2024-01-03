@@ -5,5 +5,6 @@ export enum Icons {
     EURO= "euro",
     HOME = "home",
     ROUTE = "route",
-    TICKET = "ticket"
+    TICKET = "ticket",
+    SEARCH = "search"
 }

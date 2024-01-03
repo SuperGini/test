@@ -15,12 +15,11 @@ export const routes: Routes = [
     {
         path: "central",
         component: CentralComponent,
-        // pathMatch: "full",
         children: [
             {
                 path: "home",
                 component: HomeComponent,
-                // pathMatch: "full"
+                pathMatch: "full"
             },
             {
                 path: "tickets",
@@ -39,15 +38,9 @@ export const routes: Routes = [
         component: HomeComponent,
         pathMatch: "full"
     },
-
     {
         path: "**",
         component: PageNotFoundComponent,
-
     }
-
-
-
-
 
 ];
