@@ -5,6 +5,7 @@ import {TicketsComponent} from "./components/central/tickets/tickets.component";
 import {RouteComponent} from "./components/central/route/route.component";
 import {CentralComponent} from "./components/central/central.component";
 import {PageNotFoundComponent} from "./components/notfound/page.not.found.component";
+import {AuthComponent} from "./components/auth/auth.component";
 
 export const routes: Routes = [
     {
@@ -34,10 +35,28 @@ export const routes: Routes = [
         ]
     },
     {
-        path: "home",
-        component: HomeComponent,
+        path: "authorized",
+        redirectTo: 'auth',
+        pathMatch: 'full'
+    },
+
+    {
+        path: "auth",
+        component: AuthComponent,
         pathMatch: "full"
     },
+    {
+        path: '',
+        redirectTo: 'main',
+        pathMatch: 'full'
+    },
+
+    {
+        path: '*',
+        redirectTo: 'auth',
+        pathMatch: 'full'
+    },
+
     {
         path: "**",
         component: PageNotFoundComponent,
