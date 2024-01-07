@@ -82,6 +82,8 @@ task buildTrainsCoreClasses(type: GenerateTask){
             skipDefaultInterface: 'true',
             useApiIgnore:'false',
             useSpringBoot3: "true",
+//           use the tags so it only generate one interface for each tag from the yaml file -> https://github.com/OpenAPITools/openapi-generator/issues/6595
+            useTags: "true"
     ]
 }
 
@@ -98,6 +100,8 @@ task buildTrainsApiClasses(type: GenerateTask){
             skipDefaultInterface: 'true',
             useApiIgnore:'false',
             useSpringBoot3: "true",
+//           use the tags so it only generate one interface for each tag from the yaml file -> https://github.com/OpenAPITools/openapi-generator/issues/6595
+            useTags: "true"
     ]
 }
 

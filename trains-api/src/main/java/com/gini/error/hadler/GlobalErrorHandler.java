@@ -21,7 +21,7 @@ public class GlobalErrorHandler {
         log.error("Trains core client error:", ex);
         return new ErrorResponse()
                 .errorMessage(ex.getMessage())
-                .status(BigDecimal.valueOf(HttpStatus.BAD_REQUEST.value()));
+                .status(HttpStatus.BAD_REQUEST.value());
     }
 
 
@@ -31,7 +31,7 @@ public class GlobalErrorHandler {
         log.error("Trains core server error:", ex);
         return new ErrorResponse()
                 .errorMessage(ex.getMessage())
-                .status(BigDecimal.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+                .status(HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 
 
@@ -41,7 +41,7 @@ public class GlobalErrorHandler {
         log.error("Server error:", ex);
         return new ErrorResponse()
                 .errorMessage(ex.getMessage())
-                .status(BigDecimal.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));
+                .status(HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 
 

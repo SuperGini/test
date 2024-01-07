@@ -54,6 +54,90 @@ paths:
               examples:
                 internalServerError:
                   $ref: '#/components/examples/internalServerError'
+  /tickets:
+    get:
+      tags:
+        - Ticket
+      summary: Gets users tickets paginated
+      description: Paginated user tickets
+      operationId: getUsersTicketsPaginated
+      parameters:
+        - in: query
+          name: pageNumber
+          required: true
+          schema:
+            type: integer
+          description: page number
+        - in: query
+          name: customerId
+          required: true
+          schema:
+            type: string
+          description: customerId for which requesting the tickets
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketResponsePaginated'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                badRequestTiket:
+                  $ref: '#/components/examples/badRequest'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                internalServerError:
+                  $ref: '#/components/examples/internalServerError'
+  /tickets/{pageNumber}:
+    get:
+      tags:
+        - Ticket
+      summary: Gets users tickets paginated
+      description: Paginated user ticekts
+      operationId: getAllTicketsPaginated
+      parameters:
+        - in: path
+          name: pageNumber
+          required: true
+          schema:
+            type: integer
+          description: page number
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketResponsePaginated'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                badRequestTiket:
+                  $ref: '#/components/examples/badRequest'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                internalServerError:
+                  $ref: '#/components/examples/internalServerError'
 
   /route:
     post:
@@ -195,8 +279,30 @@ components:
         errorMessage:
           type: string
         status:
-          type: number
-
+          type: integer
+    TicketResponse:
+      type: object
+      properties:
+        price:
+          type: string
+          example: '201.26'
+        startLocation:
+          type: string
+          example: 'Bucharest'
+        endLocation:
+          type: string
+          example: 'Iasi'
+    TicketResponsePaginated:
+      type: object
+      properties:
+        totalTickets:
+          type: integer
+          format: int64
+          example: 2
+        ticketResponses:
+          type: array
+          items:
+            $ref: '#/components/schemas/TicketResponse'
   examples:
     badRequest:
       value:
