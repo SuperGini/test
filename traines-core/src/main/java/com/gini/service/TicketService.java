@@ -39,11 +39,11 @@ public class TicketService {
         var ticket = customerOpt
                 .map(customer -> ticketMapper.mapFrom(customer, route)) //creates new ticket and sets the customer and route on ticket
                 .orElseGet(() -> ticketMapper.mapFrom(ticketRequest, route)); //creates new customer and ticket and sets the route
-
+        log.info("saving ticket for customerId: {}", ticketRequest.getCustomer().getId());
         ticketRepository.save(ticket);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public TicketResponsePaginated getUserTicketsPaginated(Integer pageNumber, String customerId){
         var nrOfElementsOnPage = 5;
         Pageable page = PageRequest.of(pageNumber, nrOfElementsOnPage);
@@ -52,10 +52,27 @@ public class TicketService {
 
         Long totalTickets = ticketsPage.getTotalElements();
 
-        var s = ticketsPage.stream()
+        log.info("mapping ticket response");
+        var ticketResponses = ticketsPage.stream()
                 .map(ticketMapper::mapFrom)
                 .toList();
-        return new TicketResponsePaginated(s, totalTickets);
+        return new TicketResponsePaginated(ticketResponses, totalTickets);
+    }
+
+    @Transactional(readOnly = true)
+    public TicketResponsePaginated getTicketsPaginated(Integer pageNumber) {
+        var nrOfElementsOnPage = 5;
+        Pageable page = PageRequest.of(pageNumber, nrOfElementsOnPage);
+
+        var ticketsPage =  ticketRepository.getTicketPaginated(page);
+
+        Long totalTickets = ticketsPage.getTotalElements();
+
+        log.info("mapping ticket response");
+        var ticketResponses = ticketsPage.stream()
+                .map(ticketMapper::mapFrom)
+                .toList();
+        return new TicketResponsePaginated(ticketResponses, totalTickets);
     }
 
 }

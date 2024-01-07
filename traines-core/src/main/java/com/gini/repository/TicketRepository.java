@@ -25,5 +25,10 @@ public interface TicketRepository extends JpaRepository<Ticket, String> {
     Page<Ticket> getUserTicketPaginated(Pageable pageable, String customerId);
 //----------------------------------------------------------------------------------------------------------------------
 
+    @Query("""
+            SELECT t FROM Ticket t LEFT JOIN FETCH t.route
+            """)
+    Page<Ticket> getTicketPaginated(Pageable pageable);
+
 
 }
