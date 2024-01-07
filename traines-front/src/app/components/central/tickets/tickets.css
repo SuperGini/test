@@ -2,7 +2,9 @@
     max-width: 80rem;
     width: 100%;
     background: var(--white-color);
-    height: 70%;
+    min-height: 55rem;
+    max-height: 70%;
+    height: 100%;
     margin-top: 1rem;
     padding: 2rem;
 }
@@ -109,6 +111,7 @@
     width: 100%;
     align-items: center;
     justify-content: center;
+    min-height: 11rem;
     max-height: 15%;
     height: 100%;
     padding: 0 2rem 0 2rem;
@@ -162,6 +165,7 @@
 .paginator {
     display: flex;
     justify-content: center;
+    height: 6rem;
 }
 
 
