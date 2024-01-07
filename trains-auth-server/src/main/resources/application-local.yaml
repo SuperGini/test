@@ -19,7 +19,7 @@ clients:
       clientId: client
       clientSecret: secret
       redirectUri: http://localhost:8083/authorized
-      logoutRedirectUri: http://127.0.0.1:8083/
+      logoutRedirectUri: http://localhost:8083/
     - registerId: train-api
       clientId: trainApi
       clientSecret: trainSecret
