@@ -39,8 +39,8 @@ public class Ticket {
     /**
      * https://discourse.hibernate.org/t/onetoone-mapping-has-unique-constraint-when-generating-schema/7642 -> @OneToOne sets foreign key as unique so i had to transform in @OneToMany
      */
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE, mappedBy = "ticket")
-    private Set<Route> routes = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    private Route route;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Customer customer;
@@ -52,12 +52,12 @@ public class Ticket {
         Ticket ticket = (Ticket) o;
         return Objects.equals(id, ticket.id)
                 && Objects.equals(price, ticket.price)
-                && Objects.equals(routes, ticket.routes)
+                && Objects.equals(route, ticket.route)
                 && Objects.equals(customer, ticket.customer);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, price, routes, customer);
+        return Objects.hash(id, price, route, customer);
     }
 }

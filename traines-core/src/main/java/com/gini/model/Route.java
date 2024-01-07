@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,8 @@ import org.hibernate.annotations.UuidGenerator;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Builder
@@ -44,25 +47,25 @@ public class Route {
     @Column(name = "prices", nullable = false)
     private BigDecimal price;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Ticket ticket;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "route")
+    private List<Ticket> ticket = new ArrayList<>();
 
     @CreationTimestamp
-    private OffsetDateTime departure;
+    private OffsetDateTime created;
 
     @UpdateTimestamp
-    private OffsetDateTime arrival;
+    private OffsetDateTime updated;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Route route = (Route) o;
-        return Objects.equals(id, route.id) && Objects.equals(startLocation, route.startLocation) && Objects.equals(endLocation, route.endLocation) && Objects.equals(price, route.price) && Objects.equals(ticket, route.ticket) && Objects.equals(departure, route.departure) && Objects.equals(arrival, route.arrival);
+        return Objects.equals(id, route.id) && Objects.equals(startLocation, route.startLocation) && Objects.equals(endLocation, route.endLocation) && Objects.equals(price, route.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, startLocation, endLocation, price, ticket, departure, arrival);
+        return Objects.hash(id, startLocation, endLocation, price);
     }
 }

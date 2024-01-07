@@ -3,6 +3,7 @@ package com.gini.mapper;
 import com.gini.model.Customer;
 import com.gini.model.Route;
 import com.gini.model.Ticket;
+import com.gini.rest.dto.response.TicketResponse;
 import gin.model.TicketRequest;
 import org.springframework.stereotype.Component;
 
@@ -21,19 +22,26 @@ public class TicketMapper {
 
         return Ticket.builder()
                 .price(route.getPrice())
-                .routes(Set.of(route))
+                .route(route)
                 .customer(customer)
                 .build();
 
     }
 
-    public Ticket mapFrom(TicketRequest ticketRequest, Customer customer, Route route) {
+    public Ticket mapFrom(Customer customer, Route route) {
         return Ticket.builder()
                 .price(route.getPrice())
-                .routes(Set.of(route))
+                .route(route)
                 .customer(customer)
                 .build();
     }
 
+    public TicketResponse mapFrom(Ticket ticket) {
+        return TicketResponse.builder()
+                .price(ticket.getPrice().toString())
+                .startLocation(ticket.getRoute().getStartLocation())
+                .endLocation(ticket.getRoute().getEndLocation())
+                .build();
+    }
 
 }

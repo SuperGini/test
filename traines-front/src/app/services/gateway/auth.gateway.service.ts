@@ -1,11 +1,11 @@
 import {inject, Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Token} from "../util/token";
-import {httpHeaders, httpParams} from "../util/token.parameters";
+import {Token} from "../../util/token";
+import {httpHeaders, httpParams} from "../../util/token.parameters";
 
 @Injectable({providedIn: 'root'})
-export class GatewayService {
+export class AuthGatewayService {
 
     private httpClient: HttpClient = inject(HttpClient);
 
