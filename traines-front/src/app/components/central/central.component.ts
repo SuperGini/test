@@ -1,6 +1,9 @@
-import {Component, inject} from "@angular/core";
+import {Component, inject, OnInit} from "@angular/core";
 import {MatIconModule} from "@angular/material/icon";
 import {Router, RouterOutlet} from "@angular/router";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {NgClass} from "@angular/common";
+import {isHomeActive, isRouteActive, isTicketsActive} from "../../state/state";
 
 @Component({
     selector: "central-component",
@@ -8,14 +11,17 @@ import {Router, RouterOutlet} from "@angular/router";
     styleUrl: "central.css",
     imports: [
         MatIconModule,
-        RouterOutlet
+        RouterOutlet,
+        MatPaginatorModule,
+        NgClass
     ],
     standalone: true
 })
 
-export class CentralComponent {
+export class CentralComponent{
 
     private router: Router = inject(Router);
+    protected readonly isHomeActive = isHomeActive;
 
     toHomePage() {
         this.router.navigate(['central/home']);
@@ -29,4 +35,7 @@ export class CentralComponent {
         this.router.navigate(['central/route']);
     }
 
+
+    protected readonly isTicketsActive = isTicketsActive;
+    protected readonly isRouteActive = isRouteActive;
 }

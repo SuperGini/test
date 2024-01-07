@@ -1,9 +1,9 @@
 <div class="central-container">
     <nav class="nav-bar">
         <ul>
-            <li><a (click)="toHomePage()">Home</a></li>
-            <li><a (click)="toTicketsPage()">Tickets</a></li>
-            <li><a (click)="toRoutePage()">Route</a></li>
+            <li><a (click)="toHomePage()" [ngClass]="{'border': isHomeActive() === true}" >Home</a></li>
+            <li><a (click)="toTicketsPage()" [ngClass]="{'border': isTicketsActive() === true}">Tickets</a></li>
+            <li><a (click)="toRoutePage()" [ngClass]="{'border': isRouteActive() === true}">Route</a></li>
         </ul>
     </nav>
     <div class="router-container">
@@ -11,9 +11,9 @@
     </div>
 
     <div class="down-icons-container">
-        <mat-icon svgIcon="home"></mat-icon>
-        <mat-icon svgIcon="ticket"></mat-icon>
-        <mat-icon svgIcon="route"></mat-icon>
+        <mat-icon svgIcon="home" (click)="toHomePage()" [ngClass]="{'active-color': isHomeActive() === true}"></mat-icon>
+        <mat-icon svgIcon="ticket" (click)="toTicketsPage()" [ngClass]="{'active-color': isTicketsActive() === true}"></mat-icon>
+        <mat-icon svgIcon="route" (click)="toRoutePage()" [ngClass]="{'active-color': isRouteActive() === true}"></mat-icon>
     </div>
 
 </div>

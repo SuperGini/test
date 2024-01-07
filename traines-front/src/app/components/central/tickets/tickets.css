@@ -2,7 +2,7 @@
     max-width: 80rem;
     width: 100%;
     background: var(--white-color);
-    height: 80%;
+    height: 70%;
     margin-top: 1rem;
     padding: 2rem;
 }
@@ -13,7 +13,7 @@
     background:  #ecf0f1;
     margin-top: 1rem;
     border-radius: 0.7rem;
-    min-height: 15%;
+    min-height: 9rem;
     max-height: 15%;
     height: 100%;
 }
@@ -60,9 +60,13 @@
     align-items: center;
 }
 
+.price p {
+    margin-bottom: 0 !important;
+}
+
 .price-container mat-icon {
-    width: 1.2rem;
-    height: 1.2rem;
+    width: 1.4rem;
+    height: 1.4rem;
     margin-right: 0.2rem;
 }
 
@@ -153,6 +157,11 @@
 
 .inner-search-container button:active {
     box-shadow: rgba(197, 54, 6, 0.65) 0px 0px 0px 2px, rgba(197, 54, 6, 0.65) 0px 4px 6px -1px, rgba(197, 54, 6, 0.65) 0px 1px 0px inset;
+}
+
+.paginator {
+    display: flex;
+    justify-content: center;
 }
 
 

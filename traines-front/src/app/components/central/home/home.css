@@ -2,7 +2,7 @@
     max-width: 80rem;
     width: 100%;
     background: var(--white-color);
-    height: 90%;
+    height: 85%;
     margin-top: 1rem;
     padding: 2rem;
 }
@@ -60,9 +60,13 @@
     align-items: center;
 }
 
+.price p {
+    margin-bottom: 0 !important;
+}
+
 .price-container mat-icon {
-    width: 1.2rem;
-    height: 1.2rem;
+    width: 1.4rem;
+    height: 1.4rem;
     margin-right: 0.2rem;
 }
 
@@ -97,6 +101,11 @@
 .route-container mat-icon {
     width: 1.5rem;
     height: 1.5rem;
+}
+
+.paginator {
+    display: flex;
+    justify-content: center;
 }
 
 

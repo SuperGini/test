@@ -1,8 +1,9 @@
-import {Component, inject, OnInit} from "@angular/core";
+import {Component, inject, OnDestroy, OnInit} from "@angular/core";
 import {MatIconModule} from "@angular/material/icon";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {CreateRoute} from "../../../dto/request/create.route";
 import {RouteService} from "../../../services/route/route.service";
+import {isRouteActive} from "../../../state/state";
 
 @Component({
     selector: "route-component",
@@ -15,7 +16,7 @@ import {RouteService} from "../../../services/route/route.service";
     standalone: true
 })
 
-export class RouteComponent implements OnInit {
+export class RouteComponent implements OnInit, OnDestroy {
 
     public routeForm: FormGroup;
     private formBuilder = inject(FormBuilder);
@@ -27,6 +28,8 @@ export class RouteComponent implements OnInit {
             arrival: ['', Validators.required],
             price: ['', Validators.required]
         });
+
+        isRouteActive.set(true);
     }
 
     createRoute() {
@@ -42,6 +45,10 @@ export class RouteComponent implements OnInit {
             endLocation: form.arrival,
             price: form.price
         };
+    }
+
+    ngOnDestroy(): void {
+       isRouteActive.set(false);
     }
 
 
