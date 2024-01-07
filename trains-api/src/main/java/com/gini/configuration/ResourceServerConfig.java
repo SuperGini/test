@@ -1,6 +1,7 @@
 package com.gini.configuration;
 
 import com.gini.security.AudienceValidator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,13 +31,17 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@RequiredArgsConstructor
 public class ResourceServerConfig {
 
     @Value("${auth-server.url}")
     private String authServerUrl;
+    private final CorsConfig corsConfig;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtDecoder jwtDecoder) throws Exception {
+
+        corsConfig.corsConfiguration(http);
 
         http.oauth2Client(Customizer.withDefaults());
 
@@ -54,9 +59,9 @@ public class ResourceServerConfig {
                 auth.requestMatchers("/ticket/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers("/route/**").hasAnyRole("ADMIN")
                         .anyRequest().authenticated()
-                );
+        );
 
-       return http.build();
+        return http.build();
     }
 
     @Bean
@@ -77,9 +82,9 @@ public class ResourceServerConfig {
      * <a href=https://docs.spring.io/spring-security/reference/servlet/oauth2/client/index.html>Client manager</a>
      * <br>
      * this bean will act as a proxy to auth-server and manage the client
-     *  ATTENTION!!!! -> dont forget to restart this service if trains-auth-server restarts, because the manager cashes the token
-     *  and when the auth-server restarts it changes the signing key :D
-     * */
+     * ATTENTION!!!! -> dont forget to restart this service if trains-auth-server restarts, because the manager cashes the token
+     * and when the auth-server restarts it changes the signing key :D
+     */
     @Bean
     public OAuth2AuthorizedClientManager authorizedClientManager(ClientRegistrationRepository clientRegistrationRepository,
                                                                  OAuth2AuthorizedClientRepository authorizedClientRepository) {

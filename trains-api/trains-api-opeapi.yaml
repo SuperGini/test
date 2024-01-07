@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Trains-core microservice
+  title: Trains-API microservice
   description: This microservice is saving information to the database
   termsOfService: http://swagger.io/terms/
   contact:
