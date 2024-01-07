@@ -3,12 +3,9 @@ package com.gini.mapper;
 import com.gini.model.Customer;
 import com.gini.model.Route;
 import com.gini.model.Ticket;
-import com.gini.rest.dto.response.TicketResponse;
 import gin.model.TicketRequest;
+import gin.model.TicketResponse;
 import org.springframework.stereotype.Component;
-
-import java.math.BigDecimal;
-import java.util.Set;
 
 @Component
 public class TicketMapper {
@@ -37,11 +34,12 @@ public class TicketMapper {
     }
 
     public TicketResponse mapFrom(Ticket ticket) {
-        return TicketResponse.builder()
+        return new TicketResponse()
                 .price(ticket.getPrice().toString())
                 .startLocation(ticket.getRoute().getStartLocation())
-                .endLocation(ticket.getRoute().getEndLocation())
-                .build();
+                .endLocation(ticket.getRoute().getEndLocation());
+
+
     }
 
 }

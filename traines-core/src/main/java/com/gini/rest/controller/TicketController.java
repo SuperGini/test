@@ -1,8 +1,8 @@
 package com.gini.rest.controller;
 
-import com.gini.rest.dto.response.TicketResponsePaginated;
 import com.gini.service.TicketService;
 import gin.model.TicketRequest;
+import gin.model.TicketResponsePaginated;
 import gini.api.TicketApi;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,15 +26,15 @@ public class TicketController implements TicketApi {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/tickets")
+    @Override
     public ResponseEntity<TicketResponsePaginated> getUsersTicketsPaginated(@RequestParam Integer pageNumber, @RequestParam String customerId){
         log.info("request for user tickets received, getting page: {} for customerId {}", pageNumber, customerId);
         var ticketsPaginated = ticketService.getUserTicketsPaginated(pageNumber, customerId);
         return ResponseEntity.ok(ticketsPaginated);
     }
 
-    @GetMapping("/tickets/{pageNumber}")
-    public ResponseEntity<TicketResponsePaginated> getAllTicketsPaginated(@PathVariable Integer pageNumber) {
+    @Override
+    public ResponseEntity<gin.model.TicketResponsePaginated> getAllTicketsPaginated(@PathVariable Integer pageNumber) {
         log.info("request for all tickets received, getting page: {}", pageNumber);
         var ticketsPaginated = ticketService.getTicketsPaginated(pageNumber);
         return ResponseEntity.ok(ticketsPaginated);

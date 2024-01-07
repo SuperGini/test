@@ -1,20 +1,17 @@
 package com.gini.service;
 
 import com.gini.mapper.TicketMapper;
-import com.gini.model.Ticket;
 import com.gini.repository.CustomerRepository;
 import com.gini.repository.RouteRepository;
 import com.gini.repository.TicketRepository;
-import com.gini.rest.dto.response.TicketResponsePaginated;
 import gin.model.TicketRequest;
+import gin.model.TicketResponsePaginated;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Slf4j
 @Service
@@ -44,11 +41,11 @@ public class TicketService {
     }
 
     @Transactional(readOnly = true)
-    public TicketResponsePaginated getUserTicketsPaginated(Integer pageNumber, String customerId){
+    public TicketResponsePaginated getUserTicketsPaginated(Integer pageNumber, String customerId) {
         var nrOfElementsOnPage = 5;
         Pageable page = PageRequest.of(pageNumber, nrOfElementsOnPage);
 
-        var ticketsPage =  ticketRepository.getUserTicketPaginated(page, customerId);
+        var ticketsPage = ticketRepository.getUserTicketPaginated(page, customerId);
 
         Long totalTickets = ticketsPage.getTotalElements();
 
@@ -56,7 +53,9 @@ public class TicketService {
         var ticketResponses = ticketsPage.stream()
                 .map(ticketMapper::mapFrom)
                 .toList();
-        return new TicketResponsePaginated(ticketResponses, totalTickets);
+        return new gin.model.TicketResponsePaginated()
+                .ticketResponses(ticketResponses)
+                .totalTickets(totalTickets);
     }
 
     @Transactional(readOnly = true)
@@ -64,7 +63,7 @@ public class TicketService {
         var nrOfElementsOnPage = 5;
         Pageable page = PageRequest.of(pageNumber, nrOfElementsOnPage);
 
-        var ticketsPage =  ticketRepository.getTicketPaginated(page);
+        var ticketsPage = ticketRepository.getTicketPaginated(page);
 
         Long totalTickets = ticketsPage.getTotalElements();
 
@@ -72,7 +71,9 @@ public class TicketService {
         var ticketResponses = ticketsPage.stream()
                 .map(ticketMapper::mapFrom)
                 .toList();
-        return new TicketResponsePaginated(ticketResponses, totalTickets);
+        return new TicketResponsePaginated()
+                .ticketResponses(ticketResponses)
+                .totalTickets(totalTickets);
     }
 
 }

@@ -53,7 +53,7 @@ spring:
           #          to prevent pagination in memory when doing a page request with JOIN FETCH -> https://vladmihalcea.com/join-fetch-pagination-spring/
           fail_on_pagination_over_collection_fetch: true
           plan_cache_max_size: 4096
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.MySQLDialect
   # Enable virtual threads
   threads:
     virtual:

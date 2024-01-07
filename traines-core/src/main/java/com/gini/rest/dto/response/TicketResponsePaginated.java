@@ -1,5 +1,6 @@
 package com.gini.rest.dto.response;
 
+import gin.model.TicketResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
