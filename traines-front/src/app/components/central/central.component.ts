@@ -1,6 +1,6 @@
-import {Component} from "@angular/core";
+import {Component, inject} from "@angular/core";
 import {MatIconModule} from "@angular/material/icon";
-import {RouterOutlet} from "@angular/router";
+import {Router, RouterOutlet} from "@angular/router";
 
 @Component({
     selector: "central-component",
@@ -14,5 +14,19 @@ import {RouterOutlet} from "@angular/router";
 })
 
 export class CentralComponent {
+
+    private router: Router = inject(Router);
+
+    toHomePage() {
+        this.router.navigate(['central/home']);
+    }
+
+    toTicketsPage() {
+        this.router.navigate(['central/tickets']);
+    }
+
+    toRoutePage() {
+        this.router.navigate(['central/route']);
+    }
 
 }

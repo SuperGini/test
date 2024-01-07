@@ -1,21 +1,21 @@
 <div class="ticket-center-container">
-    <div class="ticket-container">
+    <form [formGroup]="routeForm" class="ticket-container">
         <div class="departure-container container">
             <label>Departure</label>
-            <input type="text">
+            <input type="text" formControlName="departure">
         </div>
         <div class="arrival-container container">
             <label>Arrival</label>
-            <input type="text">
+            <input type="text" formControlName ="arrival">
         </div>
         <div class="price-container container">
             <label>Price</label>
-            <input type="text">
+            <input type="text" formControlName="price">
         </div>
-    </div>
+    </form>
 </div>
 <div class="search">
     <div class="inner-search-container">
-        <button>Add route</button>
+        <button (click)="createRoute()">Add route</button>
     </div>
 </div>
