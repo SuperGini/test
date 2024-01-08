@@ -35,6 +35,8 @@ public class TicketMapper {
 
     public TicketResponse mapFrom(Ticket ticket) {
         return new TicketResponse()
+                .id(ticket.getId())
+                .routeId(ticket.getRoute().getId())
                 .price(ticket.getPrice().toString())
                 .startLocation(ticket.getRoute().getStartLocation())
                 .endLocation(ticket.getRoute().getEndLocation());

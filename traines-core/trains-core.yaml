@@ -217,6 +217,46 @@ paths:
               examples:
                 internalServerError:
                   $ref: '#/components/examples/internalServerError'
+    get:
+      tags:
+        - route
+      summary: Get all routes paginated
+      description: Get all routes paginated
+      operationId: getAllRoutesPaginated
+      parameters:
+        - in: query
+          name: pageNumber
+          required: true
+          schema:
+            type: integer
+          description: page number
+
+
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RouteResponsePaginated'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                badRequestTiket:
+                  $ref: '#/components/examples/badRequest'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                internalServerError:
+                  $ref: '#/components/examples/internalServerError'
     put:
       tags:
         - route
@@ -233,6 +273,50 @@ paths:
       responses:
         '200':
           description: Successful operation
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                badRequestTiket:
+                  $ref: '#/components/examples/badRequest'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                internalServerError:
+                  $ref: '#/components/examples/internalServerError'
+  /route/{pageNumber}/{destination}:
+    get:
+      tags:
+        - route
+      summary: Gets routes paginated after search
+      description: Paginated routes
+      operationId: getRoutesByDestination
+      parameters:
+        - in: path
+          name: pageNumber
+          required: true
+          schema:
+            type: integer
+          description: page number
+        - in: path
+          name: destination
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RouteResponsePaginated'
         '400':
           description: Invalid request
           content:
@@ -335,6 +419,27 @@ components:
         endLocation:
           type: string
           example: 'Iasi'
+        id:
+          type: string
+          example: '80db4130-fab5-44b2-b800-4e81c035bb4d'
+        routeId:
+          type: string
+          example: '48483cc6-c522-4991-90b1-7767186c35bc'
+    RouteResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: '48483cc6-c522-4991-90b1-7767186c35bc'
+        startLocation:
+          type: string
+          example: 'Viena'
+        endLocation:
+          type: string
+          example: 'Bucuresti'
+        price:
+          type: string
+          example: '809.63'
     TicketResponsePaginated:
       type: object
       properties:
@@ -346,6 +451,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TicketResponse'
+
+    RouteResponsePaginated:
+      type: object
+      properties:
+        totalRoutes:
+          type: integer
+          format: int64
+        routeResponses:
+          type: array
+          items:
+            $ref: '#/components/schemas/RouteResponse'
   examples:
     badRequest:
       value:

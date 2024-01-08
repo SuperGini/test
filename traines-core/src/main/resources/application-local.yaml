@@ -9,7 +9,7 @@ logging:
   level:
     org.hibernate.sql: DEBUG
     org.hibernate.type.descriptor.sql.sql.BasicBinder: TRACE
-    org.springframework.security: TRACE
+#    org.springframework.security: TRACE
 
 auth-server:
   url: "http://localhost:8080"

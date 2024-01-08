@@ -1,9 +1,9 @@
 package com.gini.mapper;
 
 import com.gini.model.Route;
-import com.gini.rest.dto.response.RouteResponse;
 import gin.model.RouteRequest;
 import gin.model.RouteRequestUpdate;
+import gin.model.RouteResponse;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -13,11 +13,11 @@ public class RouteMapper {
 
 
     public Route mapFrom(RouteRequest routeRequest) {
-           return Route.builder()
-                   .price(new BigDecimal(routeRequest.getPrice()))
-                   .startLocation(routeRequest.getStartLocation())
-                   .endLocation(routeRequest.getEndLocation())
-                   .build();
+        return Route.builder()
+                .price(new BigDecimal(routeRequest.getPrice()))
+                .startLocation(routeRequest.getStartLocation())
+                .endLocation(routeRequest.getEndLocation())
+                .build();
     }
 
     public Route mapFrom(RouteRequestUpdate routeRequestUpdate) {
@@ -30,14 +30,11 @@ public class RouteMapper {
     }
 
     public RouteResponse mapFrom(Route route) {
-        return RouteResponse.builder()
+        return new RouteResponse()
                 .id(route.getId())
                 .price(route.getPrice().toString())
                 .startLocation(route.getStartLocation())
-                .endLocation(route.getEndLocation())
-                .build();
-
-
+                .endLocation(route.getEndLocation());
 
     }
 
