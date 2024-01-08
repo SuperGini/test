@@ -27,16 +27,23 @@ public class TicketController implements TicketApi {
     }
 
     @Override
-    public ResponseEntity<TicketResponsePaginated> getUsersTicketsPaginated(@RequestParam Integer pageNumber, @RequestParam String customerId){
+    public ResponseEntity<TicketResponsePaginated> getUsersTicketsPaginated(@RequestParam Integer pageNumber, @RequestParam String customerId) {
         log.info("request for user tickets received, getting page: {} for customerId {}", pageNumber, customerId);
         var ticketsPaginated = ticketService.getUserTicketsPaginated(pageNumber, customerId);
         return ResponseEntity.ok(ticketsPaginated);
     }
 
     @Override
-    public ResponseEntity<gin.model.TicketResponsePaginated> getAllTicketsPaginated(@PathVariable Integer pageNumber) {
+    public ResponseEntity<TicketResponsePaginated> getAllTicketsPaginated(@PathVariable Integer pageNumber) {
         log.info("request for all tickets received, getting page: {}", pageNumber);
         var ticketsPaginated = ticketService.getTicketsPaginated(pageNumber);
+        return ResponseEntity.ok(ticketsPaginated);
+    }
+
+    @Override
+    public ResponseEntity<TicketResponsePaginated> getTicketsByDestination(@PathVariable Integer pageNumber, @PathVariable String destination) {
+        log.info("request for all tickets received, getting page: {}", pageNumber);
+        var ticketsPaginated = ticketService.getTicketsByDestination(pageNumber, destination);
         return ResponseEntity.ok(ticketsPaginated);
     }
 

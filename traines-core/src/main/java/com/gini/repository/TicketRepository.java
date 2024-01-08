@@ -15,7 +15,7 @@ public interface TicketRepository extends JpaRepository<Ticket, String> {
      * <br>
      * I don't need to make 2 selects since each ticket has only one route (@ManyToOne)
      * and not a list of routes(@OneToMany) that can cause
-     * pagination in memory of the app.
+     * pagination in the memory of the app.
      * */
     @Query("""
             SELECT t FROM Ticket t
@@ -30,5 +30,11 @@ public interface TicketRepository extends JpaRepository<Ticket, String> {
             """)
     Page<Ticket> getTicketPaginated(Pageable pageable);
 
+    @Query("""
+            SELECT t FROM Ticket t
+                LEFT JOIN FETCH t.route
+            WHERE t.route.startLocation =:destination OR t.route.endLocation =:destination
+            """)
+    Page<Ticket> getTicketsByDestination(Pageable pageable, String destination);
 
 }

@@ -104,7 +104,7 @@ paths:
       tags:
         - Ticket
       summary: Gets users tickets paginated
-      description: Paginated user ticekts
+      description: Paginated user tickets
       operationId: getAllTicketsPaginated
       parameters:
         - in: path
@@ -138,7 +138,50 @@ paths:
               examples:
                 internalServerError:
                   $ref: '#/components/examples/internalServerError'
-
+  /tickets/{pageNumber}/{destination}:
+    get:
+      tags:
+        - Ticket
+      summary: Gets users tickets paginated after search
+      description: Paginated user tickets
+      operationId: getTicketsByDestination
+      parameters:
+        - in: path
+          name: pageNumber
+          required: true
+          schema:
+            type: integer
+          description: page number
+        - in: path
+          name: destination
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketResponsePaginated'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                badRequestTiket:
+                  $ref: '#/components/examples/badRequest'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                internalServerError:
+                  $ref: '#/components/examples/internalServerError'
   /route:
     post:
       tags:

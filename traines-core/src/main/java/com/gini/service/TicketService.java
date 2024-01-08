@@ -76,4 +76,22 @@ public class TicketService {
                 .totalTickets(totalTickets);
     }
 
+    @Transactional(readOnly = true)
+    public TicketResponsePaginated getTicketsByDestination(Integer pageNumber, String destination) {
+        var nrOfElementsOnPage = 5;
+        Pageable page = PageRequest.of(pageNumber, nrOfElementsOnPage);
+
+        var ticketsPage = ticketRepository.getTicketsByDestination(page, destination);
+
+        Long totalTickets = ticketsPage.getTotalElements();
+
+        log.info("mapping ticket response for destination: {}", destination);
+        var ticketResponses = ticketsPage.stream()
+                .map(ticketMapper::mapFrom)
+                .toList();
+        return new TicketResponsePaginated()
+                .ticketResponses(ticketResponses)
+                .totalTickets(totalTickets);
+    }
+
 }
