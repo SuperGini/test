@@ -34,7 +34,7 @@ export const routes: Routes = [
                 path: "route",
                 component: RouteComponent,
                 pathMatch: "full",
-                // canActivate: [canActivateRoute]
+                canActivate: [canActivateRoute]
             }
         ]
     },
