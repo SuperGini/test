@@ -217,7 +217,8 @@ public class SecurityServerConfig {
                 .tokenSettings(
                         // -> modify the token settings
                         TokenSettings.builder()
-                                .accessTokenTimeToLive(Duration.ofMinutes(30))
+                                .reuseRefreshTokens(false)
+                                .accessTokenTimeToLive(Duration.ofMinutes(2))
                                 .refreshTokenTimeToLive(Duration.ofHours(8))
                                 .build()
                 )
