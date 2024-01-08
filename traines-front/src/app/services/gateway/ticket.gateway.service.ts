@@ -1,33 +1,32 @@
 import {inject, Injectable} from "@angular/core";
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {TicketResponsePaginated} from "../../dto/response/ticket.response.paginated";
 import {Observable} from "rxjs";
-import {LocalStorageService} from "../local.storage.service";
+import {CreateTicket} from "../../dto/request/create.ticket";
 
-@Injectable({providedIn:"root"})
+@Injectable({providedIn: "root"})
 export class TicketGatewayService {
 
     private httpClient = inject(HttpClient);
-    private localStorageService = inject(LocalStorageService);
 
     public getAllTicketsPaginated(pageNumber: number): Observable<TicketResponsePaginated> {
-        const httpHeaders = new HttpHeaders()
-            .set("content-type", "application/json")
-            .set('Authorization', `Bearer ${this.localStorageService.getItem("id_token")}`)
-        return this.httpClient.get<TicketResponsePaginated>(`http://localhost:9010/tickets/${pageNumber}`, {headers: httpHeaders});
+        return this.httpClient.get<TicketResponsePaginated>(`http://localhost:9010/tickets/${pageNumber}`);
     }
 
     public getUserTicketsPaginated(pageNumber: number, userId: string): Observable<TicketResponsePaginated> {
-        const httpHeaders = new HttpHeaders()
-            .set("content-type", "application/json")
-            .set('Authorization', `Bearer ${this.localStorageService.getItem("id_token")}`)
-        const queryParams = new HttpParams()
+        const queryParams: HttpParams = new HttpParams()
             .set("pageNumber", pageNumber)
             .set("customerId", userId);
-
-        return this.httpClient.get<TicketResponsePaginated>(`http://localhost:9010/tickets`, {headers: httpHeaders, params: queryParams});
+        return this.httpClient.get<TicketResponsePaginated>(`http://localhost:9010/tickets`, {params: queryParams});
     }
 
+    public getTicketsByDestination(pageNumber: number, destination: string): Observable<TicketResponsePaginated> {
+        return this.httpClient.get<TicketResponsePaginated>(`http://localhost:9010/tickets/${pageNumber}/${destination}`);
+    }
+
+    public buyTicket(routId: string): Observable<void> {
+        return this.httpClient.post<void>(`http://localhost:9010/ticket/${routId}`, null);
+    }
 
 
 

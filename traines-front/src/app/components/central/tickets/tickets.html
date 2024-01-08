@@ -1,24 +1,24 @@
 <div class="ticket-center-container">
     @if (ticket()) {
-        @for (ticket of ticket().ticketResponses; track $index) {
-            <div class="ticket-container">
+        @for (route of ticket().routeResponses; track $index) {
+            <div class="ticket-container" (click)="buyTicket(route.id, route.price)">
                 <div class="price-container">
                     <div class="round left"></div>
                     <div class="round right"></div>
                     <p>Price:</p>
                     <div class="price">
                         <mat-icon svgIcon="euro"></mat-icon>
-                        <p>{{ticket.price}}</p>
+                        <p>{{route.price}}</p>
                     </div>
                 </div>
                 <div class="route-container">
-                    <p class="departure common">{{ticket.startLocation}}</p>
+                    <p class="departure common">{{route.startLocation}}</p>
                     <div class="line"></div>
                     <div class="route-imag">
                         <mat-icon svgIcon="train"></mat-icon>
                     </div>
                     <div class="line"></div>
-                    <p class="arrival common">{{ticket.endLocation}}</p>
+                    <p class="arrival common">{{route.endLocation}}</p>
                 </div>
             </div>
         }
@@ -28,8 +28,8 @@
 <div class="search">
     <div class="inner-search-container">
     <mat-icon svgIcon="search"></mat-icon>
-        <input type="text">
-        <button>Search</button>
+        <input type="text" [(ngModel)]="destination">
+        <button (click)="searchByDestination()">Search</button>
     </div>
 </div>
 <div class="paginator">

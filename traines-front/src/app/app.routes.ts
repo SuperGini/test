@@ -6,6 +6,7 @@ import {RouteComponent} from "./components/central/route/route.component";
 import {CentralComponent} from "./components/central/central.component";
 import {PageNotFoundComponent} from "./components/notfound/page.not.found.component";
 import {AuthComponent} from "./components/auth/auth.component";
+import {canActivateRoute} from "./guard/auht.guard";
 
 export const routes: Routes = [
     {
@@ -20,17 +21,20 @@ export const routes: Routes = [
             {
                 path: "home",
                 component: HomeComponent,
-                pathMatch: "full"
+                pathMatch: "full",
+                canActivate: [canActivateRoute]
             },
             {
                 path: "tickets",
                 component: TicketsComponent,
-                pathMatch: "full"
+                pathMatch: "full",
+                canActivate: [canActivateRoute]
             },
             {
                 path: "route",
                 component: RouteComponent,
-                pathMatch: "full"
+                pathMatch: "full",
+                // canActivate: [canActivateRoute]
             }
         ]
     },

@@ -30,5 +30,19 @@ export class AuthService {
                    });
     }
 
+    getAuthTokenForRefreshToken() {
+        return this.gatewayService.getAuthTokenForRefreshToken();
+            // .pipe(take(1))
+            // .subscribe(token => {
+            //     this.localStorageService.setItem('id_token', token.id_token);
+            //     this.localStorageService.setItem('refresh_token', token.refresh_token);
+            //
+            //     console.log(`id_token via refresh token = ${token.id_token}`);
+            //     console.log(`refresh_token via refresh token = ${token.refresh_token}`);
+            // })
+    }
+
+
+
 
 }

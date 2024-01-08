@@ -1,4 +1,4 @@
-import {Component, Inject, OnDestroy, OnInit, PLATFORM_ID, signal} from "@angular/core";
+import {Component, inject, Inject, OnDestroy, OnInit, PLATFORM_ID, signal} from "@angular/core";
 import {MatIconModule} from "@angular/material/icon";
 import {TicketsService} from "../../../services/tickets/tickets.service";
 import {TicketResponsePaginated} from "../../../dto/response/ticket.response.paginated";
@@ -8,6 +8,10 @@ import {JwtHelperService} from "@auth0/angular-jwt";
 import {LocalStorageService} from "../../../services/local.storage.service";
 import {Router} from "@angular/router";
 import {isHomeActive} from "../../../state/state";
+import {log} from "node:util";
+import {catchError, throwError} from "rxjs";
+import {HttpErrorResponse} from "@angular/common/http";
+import {AuthService} from "../../../services/auth/auth.service";
 
 @Component({
     selector: "home-component",
@@ -39,9 +43,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     public ticket = signal<TicketResponsePaginated>(null);
 
+   // const tokenService = inject(AuthService);
     constructor(private ticketService: TicketsService,
                 @Inject(PLATFORM_ID) platformId: Object,
-                private localStorageService: LocalStorageService
+                private localStorageService: LocalStorageService,
+                private tokenService: AuthService
     ) {
 
         this.isBrowser = isPlatformBrowser(platformId);
@@ -52,6 +58,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.userId = y.userId; //GET userId form JWT
 
             this.ticketService.getUserTicketsPaginated(0, this.userId)
+                .pipe(catchError(this.handleError.bind(this)))
                 .subscribe(x => {
                     this.ticket.set(x);
                     this.length = x.totalTickets;
@@ -59,6 +66,17 @@ export class HomeComponent implements OnInit, OnDestroy {
                     console.log(x.totalTickets);
                 });
         }
+    }
+
+     handleError = (error: HttpErrorResponse) => {
+
+        if(error.status === 401) {
+            console.error(`An error has occurred: ${error.error} with status ${error.status}. Generating a new token`);
+            this.tokenService.getAuthTokenForRefreshToken();
+        }
+
+        return throwError(() =>
+            new Error(`Something bad happened; please try again later. ${error.error} and status ${error.status}`));
     }
 
 

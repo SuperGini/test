@@ -1,23 +1,26 @@
 import {inject, Injectable} from "@angular/core";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {CreateRoute} from "../../dto/request/create.route";
 import {Observable} from "rxjs";
-import {LocalStorageService} from "../local.storage.service";
+import {RouteResponsePaginated} from "../../dto/response/route.response.paginated";
 
 @Injectable({providedIn: "root"})
 export class RouteGatewayService {
 
     private httClient = inject(HttpClient);
-    private localStorageService = inject(LocalStorageService);
 
-    createRoute(createRoute: CreateRoute): Observable<void>{
+    createRoute(createRoute: CreateRoute): Observable<void> {
+        return this.httClient.post<void>("http://localhost:9010/route", createRoute);
+    }
 
-        //todo: need to move this shit into a interceptor!!!!
-        const httpHeaders = new HttpHeaders()
-            .set("content-type", "application/json")
-            .set('Authorization', `Bearer ${this.localStorageService.getItem("id_token")}`)
+    getAllRoutesPaginated(pageNumber: number): Observable<RouteResponsePaginated> {
+        const queryParam = new HttpParams()
+            .set('pageNumber', pageNumber);
+        return this.httClient.get<RouteResponsePaginated>(`http://localhost:9010/route`, {params: queryParam});
+    }
 
-       return  this.httClient.post<void>("http://localhost:9010/route", createRoute, {headers: httpHeaders});
+    getAllRoutesByDestination(pageNumber: number, destination: string): Observable<RouteResponsePaginated>{
+        return this.httClient.get<RouteResponsePaginated>(`http://localhost:9010/route/${pageNumber}/${destination}`);
     }
 
 }
