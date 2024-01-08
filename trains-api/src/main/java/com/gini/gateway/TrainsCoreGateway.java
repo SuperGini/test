@@ -3,6 +3,7 @@ package com.gini.gateway;
 
 import gini.trainscore.model.RouteRequest;
 import gini.trainscore.model.RouteRequestUpdate;
+import gini.trainscore.model.RouteResponsePaginated;
 import gini.trainscore.model.TicketRequest;
 import gini.trainscore.model.TicketResponsePaginated;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,5 +30,14 @@ public interface TrainsCoreGateway {
 
     @GetExchange("/tickets/{pageNumber}")
     TicketResponsePaginated getAllTicketsPaginated(@PathVariable Integer pageNumber);
+
+    @GetExchange("/tickets/{pageNumber}/{destination}")
+    TicketResponsePaginated getTicketsByDestination(@PathVariable Integer pageNumber, @PathVariable String destination);
+
+    @GetExchange("/route")
+    RouteResponsePaginated getAllRoutesPaginated(@RequestParam Integer pageNumber);
+
+    @GetExchange("/route/{pageNumber}/{destination}")
+    RouteResponsePaginated getRoutesByDestination(@PathVariable Integer pageNumber, @PathVariable String destination);
 
 }

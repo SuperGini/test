@@ -7,6 +7,7 @@ import gini.trainsapi.model.TicketResponsePaginated;
 import gini.trainscore.model.TicketRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -38,5 +39,15 @@ public class TicketService {
         log.info("generate response for page number: {}", pageNumber);
         return ticketMapper.mapFrom(ticketsPaginated);
     }
+
+    public TicketResponsePaginated getTicketsByDestination(Integer pageNumber, String destination) {
+        log.debug("sending page number: {} and destination: {} to gateway", pageNumber, destination);
+        var ticketsPaginated = trainsCoreGateway.getTicketsByDestination(pageNumber, destination);
+        log.info("generate response for page number: {} and destination: {}", pageNumber, destination);
+        return ticketMapper.mapFrom(ticketsPaginated);
+    }
+
+
+
 
 }

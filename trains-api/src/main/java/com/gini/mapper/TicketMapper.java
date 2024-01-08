@@ -20,6 +20,8 @@ public class TicketMapper {
 
     private TicketResponse mapFrom(gini.trainscore.model.TicketResponse ticket) {
         return new TicketResponse()
+                .id(ticket.getId())
+                .routeId(ticket.getRouteId())
                 .price(ticket.getPrice())
                 .startLocation(ticket.getStartLocation())
                 .endLocation(ticket.getEndLocation());

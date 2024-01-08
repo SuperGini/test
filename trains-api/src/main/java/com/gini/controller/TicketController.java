@@ -39,4 +39,11 @@ public class TicketController implements TicketApi {
         return ResponseEntity.ok(tickets);
     }
 
+    @Override
+    public ResponseEntity<TicketResponsePaginated> getTicketsByDestination(Integer pageNumber, String destination) {
+        log.info("sending request for page: {} and destination: {}", pageNumber, destination);
+        var tickets =  ticketService.getTicketsByDestination(pageNumber, destination);
+        return ResponseEntity.ok(tickets);
+    }
+
 }

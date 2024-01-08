@@ -4,6 +4,7 @@ import com.gini.service.RouteService;
 import gini.trainsapi.api.RouteApi;
 import gini.trainsapi.model.RouteRequest;
 import gini.trainsapi.model.RouteRequestUpdate;
+import gini.trainsapi.model.RouteResponsePaginated;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,19 @@ public class RouteController implements RouteApi {
         log.debug("route request received");
         routeService.createRoute(routeRequest);
         return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<RouteResponsePaginated> getAllRoutesPaginated(Integer pageNumber) {
+        var route =  routeService.getAllRoutesPaginated(pageNumber);
+        return ResponseEntity.ok(route);
+    }
+
+    @Override
+    public ResponseEntity<RouteResponsePaginated> getRoutesByDestination(Integer pageNumber, String destination) {
+        var route = routeService.getRoutesByDestination(pageNumber, destination);
+        return ResponseEntity.ok(route);
+
     }
 
     @Override
