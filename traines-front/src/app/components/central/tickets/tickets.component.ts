@@ -5,7 +5,6 @@ import {TicketsService} from "../../../services/tickets/tickets.service";
 import {isPlatformBrowser} from "@angular/common";
 import {isTicketsActive} from "../../../state/state";
 import {FormsModule} from "@angular/forms";
-import {JwtHelperService} from "@auth0/angular-jwt";
 import {RouteService} from "../../../services/route/route.service";
 import {RouteResponsePaginated} from "../../../dto/response/route.response.paginated";
 
@@ -37,8 +36,6 @@ export class TicketsComponent implements OnInit, OnDestroy {
     isBrowser: boolean;
 
     destination: string = '';
-
-    private jwtHelper: JwtHelperService = new JwtHelperService();
 
     constructor(private ticketService: TicketsService,
                 @Inject(PLATFORM_ID) platformId: Object,
@@ -86,7 +83,7 @@ export class TicketsComponent implements OnInit, OnDestroy {
                     this.ticket.set(x);
                     this.length = x.totalRoutes;
                 });
-            console.log(this.destination + "++++++++++++++++++")
+            console.log(this.destination + "++++++++++++++++++");
         }
 
         if (this.destination === "") {

@@ -3,7 +3,11 @@
         <ul>
             <li><a (click)="toHomePage()" [ngClass]="{'border': isHomeActive() === true}" >Home</a></li>
             <li><a (click)="toTicketsPage()" [ngClass]="{'border': isTicketsActive() === true}">Tickets</a></li>
-            <li><a (click)="toRoutePage()" [ngClass]="{'border': isRouteActive() === true}">Route</a></li>
+
+            @if (isAdmin()){
+                <li><a (click)="toRoutePage()" [ngClass]="{'border': isRouteActive() === true}">Route</a></li>
+            }
+
         </ul>
     </nav>
     <div class="router-container">
@@ -13,7 +17,10 @@
     <div class="down-icons-container">
         <mat-icon svgIcon="home" (click)="toHomePage()" [ngClass]="{'active-color': isHomeActive() === true}"></mat-icon>
         <mat-icon svgIcon="ticket" (click)="toTicketsPage()" [ngClass]="{'active-color': isTicketsActive() === true}"></mat-icon>
-        <mat-icon svgIcon="route" (click)="toRoutePage()" [ngClass]="{'active-color': isRouteActive() === true}"></mat-icon>
+        @if (isAdmin()) {
+            <mat-icon svgIcon="route" (click)="toRoutePage()" [ngClass]="{'active-color': isRouteActive() === true}"></mat-icon>
+        }
+
     </div>
 
 </div>

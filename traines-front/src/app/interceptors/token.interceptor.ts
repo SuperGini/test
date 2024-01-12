@@ -8,6 +8,8 @@ export const tokenInterceptor: HttpInterceptorFn = (request, next) => {
 
     const localServiceStorage = inject(LocalStorageService);
 
+    console.log("------------------------------------------------------------");
+
     if (!request.url.includes("oauth2/token")) {
         const httpHeaders = request.headers
                                    .append("content-type", "application/json")

@@ -23,9 +23,6 @@ export class AuthGatewayService {
     getAuthTokenForRefreshToken(){
         const refreshToken = this.localStorageService.getItem("refresh_token");
 
-        // const httpHeaders = new HttpHeaders()
-        //     .set("content-type", "application/json");
-
         const queryParams = new HttpParams()
             .set("grant_type", "refresh_token")
             .set("refresh_token", refreshToken);

@@ -43,7 +43,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     public ticket = signal<TicketResponsePaginated>(null);
 
-   // const tokenService = inject(AuthService);
     constructor(private ticketService: TicketsService,
                 @Inject(PLATFORM_ID) platformId: Object,
                 private localStorageService: LocalStorageService,
