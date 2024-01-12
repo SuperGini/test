@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.isBrowser = isPlatformBrowser(platformId);
         if (this.isBrowser) {
             const jwtHelper: JwtHelperService = new JwtHelperService();
-            const token: string = <string>this.localStorageService.getItem("id_token");
+            const token: string = this.localStorageService.getItem("id_token");
             const y = jwtHelper.decodeToken(token);
             this.userId = y.userId; //GET userId form JWT
 
