@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trains-api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trains-api
+  template:
+    metadata:
+      labels:
+        app: trains-api
+    spec:
+      containers:
+        - name: trains-api-container
+          image: ginitoru/trains-api
+#          livenessProbe:
+#            httpGet:
+#              port: 9011
+#              path: /actuator/health/readiness
+#            periodSeconds: 15
+#            initialDelaySeconds: 30
+          env:
+            - name: AUTH_URL
+              value: "trains-auth-server-service.default"
+            - name: AUTH_SERVER_PORT
+              value: '8080'
+            - name: CORE_URL
+              value: 'trains-core-service.default'
+            - name: CORE_PORT
+              value: '8090'
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: trains-api-service
+spec:
+  selector:
+    # need to be same name as the one in deployment file so k8s knows what pods to expose
+    app: trains-api
+  ports:
+    #    - port that we expose the pod
+    - port: 9010
+      #      port inside container
+      targetPort: 9011
+      protocol: 'TCP'
+  type: ClusterIP

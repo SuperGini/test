@@ -23,10 +23,10 @@ spring:
 
 
 trains-core:
-  url: "http://localhost:8090"
+  url: http://${CORE_URL}:${CORE_PORT}
 
 auth-server:
-  url:
+  url: http://${AUTH_URL}:${AUTH_SERVER_PORT}
 
 # disable swagger ui in production
 springdoc:
