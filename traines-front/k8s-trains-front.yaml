@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trains-front-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trains-front
+  template:
+    metadata:
+      labels:
+        app: trains-front
+    spec:
+      containers:
+        - name: trains-front-container
+          image: ginitoru/trains-front:2
+          env:
+            - name: TRAINS_API_URL
+              value: trains-api-service.default
+            - name: AUTH_SERVER_URL
+              value: trains-auth-server-service.default
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: trains-front-service
+spec:
+  selector:
+    app: trains-front
+  ports:
+    - port: 4000
+      targetPort: 4000
+      protocol: 'TCP'
+  type: LoadBalancer
+

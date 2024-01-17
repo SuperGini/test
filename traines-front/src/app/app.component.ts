@@ -3,6 +3,7 @@ import {CommonModule, isPlatformBrowser} from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import {IconsService} from "./services/svg/icons.service";
 import {BehaviorSubject} from "rxjs";
+import {environment} from "../environments/environment";
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,8 @@ export class AppComponent implements OnInit{
     ngOnInit(): void {
        this.iconsService.registerIcons();
        AppComponent.isBrowser.next(isPlatformBrowser(this.platformId));
+
+        console.log("***********************************" + environment.trainsApiUrl);
     }
 
 }

@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Token} from "../../util/token";
 import {httpHeaders, httpParams} from "../../util/token.parameters";
 import {LocalStorageService} from "../local.storage.service";
+import {environment} from "../../../environments/environment";
 
 @Injectable({providedIn: 'root'})
 export class AuthGatewayService {
@@ -12,7 +13,7 @@ export class AuthGatewayService {
     private localStorageService: LocalStorageService = inject(LocalStorageService);
 
     getAuthToken2(code: string): Observable<Token> {
-        return this.httpClient.post<Token>('http://localhost:8080/oauth2/token',
+        return this.httpClient.post<Token>(`${environment.authServerUrl}/oauth2/token`,
             null,
             {
                 headers: httpHeaders(),
@@ -27,7 +28,7 @@ export class AuthGatewayService {
             .set("grant_type", "refresh_token")
             .set("refresh_token", refreshToken);
 
-        return this.httpClient.post<Token>(`http://localhost:8080/oauth2/token`, null, {headers: httpHeaders(), params: queryParams});
+        return this.httpClient.post<Token>(`${environment.authServerUrl}/oauth2/token`, null, {headers: httpHeaders(), params: queryParams});
 
 
     }

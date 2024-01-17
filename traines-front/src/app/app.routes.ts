@@ -27,14 +27,14 @@ export const routes: Routes = [
             },
             {
                 path: "tickets",
-                component: TicketsComponent,
                 pathMatch: "full",
+                loadComponent: () => import('./components/central/tickets/tickets.component').then(mod => mod.TicketsComponent),
                 canActivate: [authGuard]
             },
             {
                 path: "route",
-                component: RouteComponent,
                 pathMatch: "full",
+                loadComponent: () => import('./components/central/route/route.component').then(mod => mod.RouteComponent),
                 canActivate: [canActivateRouteGuard]
             }
         ]
