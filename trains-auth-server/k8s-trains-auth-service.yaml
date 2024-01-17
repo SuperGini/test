@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trains-auth-server-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trains-auth-server
+  template:
+      metadata:
+        labels:
+          app: trains-auth-server
+      spec:
+        containers:
+          - name: trains-auth-server-container
+            image: ginitoru/trains-auth-service:4
+            livenessProbe:
+              httpGet:
+                port: 8081
+                path: /actuator/health/readiness
+              periodSeconds: 15
+              initialDelaySeconds: 30
+            env:
+              - name: DB_HOST
+                value: 'mysql-service.default'
+              - name: DB_PORT
+                value: '3306'
+              - name: DB_USERNAME
+                value: root
+              - name: DB_PASSWORD
+                value: '1234'
+        restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: trains-auth-server-service
+spec:
+  selector:
+    app: trains-auth-server
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: 'TCP'
+  type: LoadBalancer

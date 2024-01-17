@@ -15,14 +15,14 @@ management:
       probes:
         enabled: true
     info:
-      enabled:
+      enabled: true
 
 spring:
   application:
     name: trains-auth-server
 #https://vladmihalcea.com/spring-boot-application-properties/
   datasource:
-    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/trains
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/trains?createDatabaseIfNotExist=true
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
 #Hikari optimization
@@ -67,14 +67,14 @@ spring:
 
 clients:
   clientApps:
-    - registerId:
-      clientId:
-      clientSecret:
-      redirectUri:
-      logoutRedirectUri:
-    - registerId:
-      clientId:
-      clientSecret:
+    - registerId: angular
+      clientId: client
+      clientSecret: secret
+      redirectUri: http://localhost:8083/authorized
+      logoutRedirectUri: http://localhost:8083/
+    - registerId: train-api
+      clientId: trainApi
+      clientSecret: trainSecret
 
 trains-api:
-  clientId:
+  clientId: trainApi

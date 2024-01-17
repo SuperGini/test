@@ -39,7 +39,7 @@ public class WebConfig {
                                 authorize
                                         .requestMatchers("/actuator/health/**").permitAll()
                                         .requestMatchers(endpoints).hasAuthority("ADMIN")
-                                        .requestMatchers(endpoints).permitAll()
+                                      //  .requestMatchers(endpoints).permitAll()
                                         .requestMatchers("/error").permitAll()
                                         .requestMatchers("/css/login.css", "/images/favicon/**", "/images/login.jpg").permitAll()
                                         //  .requestMatchers("/home").permitAll()
@@ -49,7 +49,7 @@ public class WebConfig {
                 // Form login handles the redirect to the login page from the
                 // authorization server filter chain
                 .formLogin(x -> x.loginPage("/login").permitAll()
-                        .defaultSuccessUrl("/home")
+                        .defaultSuccessUrl("/home", true) // ADD TRUE -> so I don't have that fuuuuuuking ResourceHandlerError shit
                 ).logout(logout -> logout
                         // .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout"));
