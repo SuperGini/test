@@ -11,6 +11,8 @@ management:
       enabled: true
       probes:
         enabled: true
+    info:
+      enabled: true
 spring:
   application:
     name: trains-core
@@ -60,7 +62,7 @@ spring:
       enabled: true
 
 auth-server:
-  url:
+  url: http://${AUTH_URL}:${AUTH_SERVER_PORT}
 
 
 # disable swagger ui in production
