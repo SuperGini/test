@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.RequestCacheConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -49,10 +50,11 @@ public class WebConfig {
                 // Form login handles the redirect to the login page from the
                 // authorization server filter chain
                 .formLogin(x -> x.loginPage("/login").permitAll()
-                        .defaultSuccessUrl("/home", true) // ADD TRUE -> so I don't have that fuuuuuuking ResourceHandlerError shit
+                        .defaultSuccessUrl("/home")
                 ).logout(logout -> logout
                         // .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout"));
+                        .logoutSuccessUrl("/login?logout"))
+                .requestCache(RequestCacheConfigurer::disable); // -> so I don't have that fuuuuuuking ResourceHandlerError shit -> disables the ?continue in the url when i login to /home page
 
 
         return http.build();

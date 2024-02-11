@@ -62,7 +62,7 @@ spring:
 # Enable virtual threads
   threads:
     virtual:
-      enabled: true
+      enabled: false
 
 
 clients:
