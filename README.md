@@ -1,4 +1,5 @@
 Full stack trains chedueler app
 
-![image](https://github.com/SuperGini/traines-scheduler/assets/58910040/aaa61974-2496-470f-963e-4bfc2b2f3795)
 
+
+![architecture](https://github.com/SuperGini/traines-scheduler/assets/58910040/8b3056b5-2344-4d00-a1dc-3685fd5a3cff)
