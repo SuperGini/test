@@ -2,9 +2,10 @@
 <hr>
 <br>
 
+![architecture ](https://github.com/SuperGini/traines-scheduler/assets/58910040/05c862b9-d492-483b-bea2-b566341d4d31)
 
 
-![architecture](https://github.com/SuperGini/traines-scheduler/assets/58910040/8b3056b5-2344-4d00-a1dc-3685fd5a3cff)
+
 
 
 
