@@ -22,7 +22,10 @@ public class RestClientConfig {
 
     /**
      * https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/http/client/support/InterceptingHttpAccessor.html#getRequestFactory()
+     *
+     * https://docs.spring.io/spring-framework/reference/integration/rest-clients.html#rest-request-factories -> to set up http client
      */
+
     @Bean //create http client
     public ClientHttpRequestFactory clientHttpRequestFactory() {
         var factory = new SimpleClientHttpRequestFactory();
